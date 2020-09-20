@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         tlx dark theme
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.9
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
