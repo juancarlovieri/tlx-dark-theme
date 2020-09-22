@@ -10,3 +10,10 @@ Script should update itself every 24 hours by default.
 
 Any feedbacks are welcome :D
 
+![demo-1](/img/demo-1.png)
+
+
+![demo-2](/img/demo-2.png)
+
+
+![demo-3](/img/demo-3.png)
