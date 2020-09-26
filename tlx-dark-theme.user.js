@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.1.3
+// @version      2.1.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
