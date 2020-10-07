@@ -2,7 +2,7 @@
 
 This is a dark theme script for tlx.
 
-You can use `alt` + (`arrow up` or `arrow down`) to move between contest menus (announcement, overview, problems, submissions, clarifications, scoreboard.
+You can use `alt` + (`arrow up` or `arrow down`) to move between contest menus (announcement, overview, problems, submissions, clarifications, scoreboard, etc.).
 
 How to install:
 1. Install Tampermonkey if you don't have it [here](https://tampermonkey.net). If you are using chrome, just go [here](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=id)
