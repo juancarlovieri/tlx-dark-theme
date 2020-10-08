@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.2.22
+// @version      2.3.0
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -29,15 +29,18 @@
       }
       , 1000
     );
+
     async function apply(elem){
       document.head.appendChild(elem);
     }
+
     function rmLight(){
       var cur = document.getElementById('tlx-dark-theme');
       if(cur != null)document.head.removeChild(cur);
       cur = document.getElementById("tlx-dark-theme-additional");
       if(cur != null)document.head.removeChild(cur);
     }
+
     async function applyDark(){
       if(await GM.getValue("dark") == -10)return;
       rmLight();
@@ -56,12 +59,14 @@
       apply(elem);
       apply(elem2);
     }
+
     async function rmDark(){
       var cur = document.getElementById('tlx-dark-theme');
       if(cur != null)await document.head.removeChild(cur);
       cur = document.getElementById("tlx-dark-theme-additional");
       if(cur != null)await document.head.removeChild(cur);
     }
+
     async function applyLight(){
       if(await GM.getValue("dark") == 10)return;
       await rmDark();
@@ -74,6 +79,7 @@
       btDark.innerHTML = "Light";
       apply(elem2);
     }
+
     window.addEventListener ("load", function() {
       applyLight();
       applyDark();
@@ -101,6 +107,7 @@
           "click", toggle, false
       );
     }, false);
+
     function gmMain () {
       console.log('new page');
       window.setTimeout(() => {
@@ -124,6 +131,7 @@
         }
       }, 3000);
     };
+    
     document.addEventListener('keydown', function(event) {
       if (event.altKey && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
         var tab = document.getElementsByClassName("bp3-tabs bp3-vertical");
