@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.3.2
+// @version      2.3.3
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -49,7 +49,7 @@
       elem.id = 'tlx-dark-theme';
       elem.type = 'text/css';
       elem.innerText = style;
-      var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:0px;margin:auto;float:right;margin-right:10px;margin-top:5px}button.btSubmit{cursor:pointer;background-color:transparent !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btSubmit:focus{outline:0}`;
+      var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:0px;margin:auto;float:right;margin-right:10px;margin-top:5px}button.btSubmit{cursor:pointer;background-color:transparent !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btSubmit:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}`;
       var elem2 = document.createElement('style');
       elem2.id = 'tlx-dark-theme-additional';
       elem2.type = 'text/css';
@@ -70,7 +70,7 @@
     async function applyLight(){
       if(await GM.getValue("dark") == 10)return;
       await rmDark();
-      var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:0px;margin:auto;float:right;margin-right:10px;margin-top:5px}button.btSubmit{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btSubmit:focus{outline:0}`;
+      var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:0px;margin:auto;float:right;margin-right:10px;margin-top:5px}button.btSubmit{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btSubmit:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
       var elem2 = document.createElement('style');
       elem2.id = 'tlx-dark-theme-additional';
       elem2.type = 'text/css';
@@ -80,9 +80,22 @@
       apply(elem2);
     }
 
+    function credit(){
+      var zNode = document.createElement('div');
+      zNode.innerHTML = 'Dark Theme powered by Vieri Corp.™️ All Rights Reserved.'
+      zNode.setAttribute('id', 'darkThemeCredit');
+      var arr = document.getElementsByClassName('footer__text');
+      if(arr.length != 1)return;
+      var cur = arr[0];
+      cur.prepend(zNode);
+    }
+
     window.addEventListener ("load", function() {
       applyLight();
       applyDark();
+
+      credit();
+
       var zNode = document.createElement ('div');
       zNode.innerHTML = '<button id="btDark" type="button" class="btDark> <img src="https"//foo.com alt="dark"/>'
                       + 'dark</button>'
@@ -131,7 +144,7 @@
         }
       }, 3000);
     };
-    
+
     document.addEventListener('keydown', function(event) {
       if (event.altKey && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
         var tab = document.getElementsByClassName("bp3-tabs bp3-vertical");
