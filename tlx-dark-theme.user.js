@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.3.6
+// @version      2.3.7
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -96,15 +96,15 @@
       cur.prepend(zNode);
     }
 
-      applyLight();
-      applyDark();
+    applyLight();
+    applyDark();
     window.addEventListener ("load", function() {
 
       credit();
 
       var zNode = document.createElement ('div');
       zNode.innerHTML = '<button id="btDark" type="button" class="btDark> <img src="https"//foo.com alt="dark"/>'
-                      + 'dark</button>'
+                      + 'Dark</button>'
                       ;
       zNode.setAttribute ('id', 'btDarkContainer');
       var arr = document.getElementsByClassName("bp3-navbar header");
