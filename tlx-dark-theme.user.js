@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.3.5
+// @version      2.3.6
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -8,6 +8,7 @@
 // @grant        GM.setValue
 // @grant        GM.getValue
 // @grant        GM.addStyle
+// @grant         fs
 // @grant        GM.getResourceText
 // @run-at       document-start
 // ==/UserScript==
@@ -54,10 +55,13 @@
       elem2.id = 'tlx-dark-theme-additional';
       elem2.type = 'text/css';
       elem2.innerText = style2;
-      var btDark = document.getElementById("btDark");
-      btDark.innerHTML = "Dark";
       apply(elem);
       apply(elem2);
+      var btDark = null;
+      while(btDark == null){
+          btDark = document.getElementById("btDark");
+          btDark.innerHTML = "Dark";
+      }
     }
 
     async function rmDark(){
@@ -66,7 +70,6 @@
       cur = document.getElementById("tlx-dark-theme-additional");
       if(cur != null)await document.head.removeChild(cur);
     }
-
     async function applyLight(){
       if(await GM.getValue("dark") == 10)return;
       await rmDark();
@@ -75,9 +78,12 @@
       elem2.id = 'tlx-dark-theme-additional';
       elem2.type = 'text/css';
       elem2.innerText = style2;
-      var btDark = document.getElementById("btDark");
-      btDark.innerHTML = "Light";
       apply(elem2);
+      var btDark = null;
+      while(btDark == null){
+          btDark = document.getElementById("btDark");
+          btDark.innerHTML = "Light";
+      }
     }
 
     function credit(){
@@ -90,9 +96,9 @@
       cur.prepend(zNode);
     }
 
-    window.addEventListener ("load", function() {
       applyLight();
       applyDark();
+    window.addEventListener ("load", function() {
 
       credit();
 
