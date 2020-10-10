@@ -8,7 +8,6 @@
 // @grant        GM.setValue
 // @grant        GM.getValue
 // @grant        GM.addStyle
-// @grant         fs
 // @grant        GM.getResourceText
 // @run-at       document-start
 // ==/UserScript==
