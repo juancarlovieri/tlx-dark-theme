@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.4.0
+// @version      2.4.1
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -49,7 +49,7 @@
     elem.id = 'tlx-dark-theme';
     elem.type = 'text/css';
     elem.innerText = style;
-    var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btSubmit{cursor:pointer;background-color:transparent !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btSubmit:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}`;
+    var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#282828;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:transparent !important;color:#707070 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}`;
     var elem2 = document.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
@@ -68,7 +68,7 @@
   async function applyLight(){
     if(await GM.getValue("dark") == 10)return;
     await rmDark();
-    var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btSubmit{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btSubmit:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
+    var style2 = `#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
     var elem2 = document.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
@@ -141,7 +141,7 @@
       for(var i = 0; i < arr.length; i++){
         if(arr[i].getElementsByTagName("DIV").length != 0)continue;
         var zNode = document.createElement ('div');
-        zNode.innerHTML = '<button id="btCopy' + i + '" type="button" class="btSubmit">'
+        zNode.innerHTML = '<button id="btCopy' + i + '" type="button" class="btCopy">'
                         + 'Copy</button>'
                         ;
         zNode.setAttribute ('id', 'btCopyContainer');
