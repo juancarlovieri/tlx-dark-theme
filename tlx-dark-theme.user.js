@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.4.4
+// @version      2.4.5
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -103,7 +103,7 @@
 
   function cek(s){
     var arr = ['a', 'b', 'c', 'd', 'e', 'f'];
-    for(var  i = 0; i < 6; i++){
+    for(var i = 0; i < 6; i++){
       if(s == arr[i])return true;
     }
     return false;
@@ -143,7 +143,7 @@
 
   function pref(){
     var zNode = document.createElement ('div');
-    zNode.innerHTML = '<button id="btPref' + '" type="button" class="btPref">'
+    zNode.innerHTML = '<button id="btPref" type="button" class="btPref">'
                     + 'Preferences</button>'
                     ;
     zNode.setAttribute ('id', 'btPrefContainer');
@@ -216,7 +216,7 @@
   };
 
   document.addEventListener('keydown', function(event) {
-    if (event.altKey && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+    if (event.altKey && (event.keyCode === 38 || event.keyCode === 40)) {
       var tab = document.getElementsByClassName("bp3-tabs bp3-vertical");
       if(tab.length != 1)return;
       tab = tab[0];
@@ -232,7 +232,7 @@
         }
       }
       if(indx == -1)return;
-      if(event.key === 'ArrowUp'){
+      if(event.keyCode === 38){
         indx--;
         if(indx < 0){
           indx = arr.length - 1;
