@@ -24,6 +24,8 @@ Any feedbacks are welcome :D
 
 **Update 08/10/20**: You can easily toggle between light and dark mode using the button at the top right corner of the screen.
 
+**Update 11/10/20**: You can now customize the color of problem statement by clicking the preference button below the Dark/Light button (at the top-right corner of the screen).
+
 ![demo-1](/img/demo-1.png)
 
 
