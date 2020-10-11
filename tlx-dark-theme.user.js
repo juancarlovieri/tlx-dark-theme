@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.4.3
+// @version      2.4.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -103,7 +103,7 @@
 
   function cek(s){
     var arr = ['a', 'b', 'c', 'd', 'e', 'f'];
-    for(var i = 0; i < 6; i++){
+    for(var  i = 0; i < 6; i++){
       if(s == arr[i])return true;
     }
     return false;
@@ -111,7 +111,7 @@
 
   async function askColor(){
     var prevColor = await GM.getValue('color');
-    var res = prompt('what color do you prefer for the problem statements?\ncopy the Hex Code of the color you choose\ninclude the "#" symbol\nDefault is #E3E3E3\nTo reset to default, enter "default"\nThis will only apply on dark mode and not light mode\nThe value in the textbox is your previous choice', prevColor);
+    var res = prompt('what color do you prefer for the problem statements?\nCopy the Hex Color Code of the color you choose\ninclude the "#" symbol\nDefault is #E3E3E3\nTo reset to default, enter "default"\nThis will only apply on dark mode and not light mode\nThe value in the textbox is your previous choice', prevColor);
     res = res.toLowerCase();
     if(res == "default"){
       await GM.setValue('color', '#E3E3E3');
@@ -143,7 +143,7 @@
 
   function pref(){
     var zNode = document.createElement ('div');
-    zNode.innerHTML = '<button id="btPref" type="button" class="btPref">'
+    zNode.innerHTML = '<button id="btPref' + '" type="button" class="btPref">'
                     + 'Preferences</button>'
                     ;
     zNode.setAttribute ('id', 'btPrefContainer');
