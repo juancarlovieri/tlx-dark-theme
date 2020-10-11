@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.4.2
+// @version      2.4.3
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -103,7 +103,7 @@
 
   function cek(s){
     var arr = ['a', 'b', 'c', 'd', 'e', 'f'];
-    for(var  i = 0; i < 6; i++){
+    for(var i = 0; i < 6; i++){
       if(s == arr[i])return true;
     }
     return false;
@@ -143,7 +143,7 @@
 
   function pref(){
     var zNode = document.createElement ('div');
-    zNode.innerHTML = '<button id="btPref' + '" type="button" class="btPref">'
+    zNode.innerHTML = '<button id="btPref" type="button" class="btPref">'
                     + 'Preferences</button>'
                     ;
     zNode.setAttribute ('id', 'btPrefContainer');
