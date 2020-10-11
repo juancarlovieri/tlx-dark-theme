@@ -16,6 +16,8 @@ If your script is not updating:
 5. On updates, enable "Check for updates"
 6. Hit save below the text "Update URL"
 
+You can find the error codes at the buttom of this README
+
 Any feedbacks are welcome :D
 
 **Update 21/09/20**: Added copy button to copy the samples.
@@ -33,3 +35,8 @@ Any feedbacks are welcome :D
 
 
 ![demo-3](/img/demo-3.png)
+
+Error Codes:
+- Code 1: You need to include the '#' character at the beginning of the Hex Color Code
+- Code 2: The Hex Color Code needs to be 7 characters long
+- Code 3: The Color needs to be in Hex Color Code
