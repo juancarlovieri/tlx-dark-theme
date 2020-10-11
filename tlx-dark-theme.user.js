@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.4.5
+// @version      2.4.6
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -115,8 +115,8 @@
     res = res.toLowerCase();
     if(res == "default"){
       await GM.setValue('color', '#E3E3E3');
-      await rmDark();
       await applyDark();
+      await applyLight();
       alert('success!');
       return;
     }
@@ -136,8 +136,8 @@
       return;
     }
     await GM.setValue('color', res);
-    await rmDark();
     await applyDark();
+    await applyLight();
     alert('success!');
   }
 
