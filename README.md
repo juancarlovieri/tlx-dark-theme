@@ -28,6 +28,9 @@ Any feedbacks are welcome :D
 
 **Update 11/10/20**: You can now customize the color of problem statement by clicking the preference button below the Dark/Light button (at the top-right corner of the screen).
 
+**Update 13/11/20**: Rating predictor has been added to the scoreboard so participants can predict their new rating. (just like CF predictor). 
+<br>PS: If a dialog showing "A userscript wants to access a cross-origin resource." appears, click on "Always allow". 
+
 ![demo-1](/img/demo-1.png)
 
 
