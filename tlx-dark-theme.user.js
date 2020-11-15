@@ -221,8 +221,7 @@
     return Math.max(10, (sigmoid(Math.sqrt(b / a)) - 0.7) * Math.log2(n) * 1800);
   }
 
-
-  function calc(usr, id, response, element){
+  function calc(usr, id, response, element, flag, overrideRating, overrideHidRating, overrideRank){
     // console.log(JSON.parse(response.body).data.scoreboard.content.entries);
     // console.log(JSON.parse(response.body).profilesMap);
     var uti = new Map(Object.entries(JSON.parse(response.responseText).profilesMap));
@@ -233,10 +232,24 @@
       }
     });
     if(uid == -1){
-      msg.channel.send('handle not present in contest');
       return;
     }
     var sc = JSON.parse(response.responseText).data.scoreboard.content.entries;
+    if(flag){
+      var newConf = uti.get(uid);
+      newConf.rating = {
+        publicRating: parseInt(overrideRating),
+        hiddenRating: parseInt(overrideHidRating),
+      }
+      uti.set(uid, newConf);
+    }
+    if(flag){
+      for(var i = 0; i < sc.length; ++i){
+        if(sc[i].contestantJid != uid)continue;
+        sc[i].rank = parseInt(overrideRank);
+      }
+    }
+    // console.log(sc[i]);
     // console.log(sc);
     var ustats = -1;
     var n = 0;
@@ -298,6 +311,7 @@
     }
     // console.log(newRating);
     newRating = Math.floor(newRating);
+    if(flag)return newRating;
     if(element.getElementsByClassName("diff").length != 0)return;
     var zNode = document.createElement ('td');
     var col = 'white';
@@ -324,6 +338,7 @@
     if(sc.length == 0)return;
     sc = sc[0];
     sc = sc.getElementsByTagName("TR");
+    sc2();
     var contest = document.URL.toString();
     contest = contest.split("/");
     contest = contest[contest.length - 2];
@@ -332,7 +347,6 @@
       url:        "https://uriel.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
       onload:     function (response) {
         if(response.status >= 300)return;
-        console.log(response);
         var id = JSON.parse(response.responseText).contest.jid;
         // console.log(id);
         GM_xmlhttpRequest ( {
@@ -340,18 +354,181 @@
           url:        'https://uriel.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
           onload:     function (response) {
             if(response.status >= 300)return;
-            console.log(response);
             // console.log(id);
             for(var i = 0; i < sc.length; i++){
               // console.log(sc[i]);
               var usr = sc[i].getElementsByClassName("contestant-cell")[0].getElementsByTagName("A")[0].innerHTML;
               // console.log(usr);
-              calc(usr, id, response, sc[i]);
+              calc(usr, id, response, sc[i], false);
             }
           }
         });
       }
     });
+  }
+
+  function present(usr, contest, toggle){
+    GM_xmlhttpRequest ( {
+      method:     "GET",
+      url:        "https://uriel.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
+      onload:     function (response) {
+        if(response.status >= 300)return;
+        var id = JSON.parse(response.responseText).contest.jid;
+        // console.log(id);
+        GM_xmlhttpRequest ( {
+          method:     "GET",
+          url:        'https://uriel.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
+          onload:     function (response) {
+            if(response.status >= 300)return;
+            var uti = new Map(Object.entries(JSON.parse(response.responseText).profilesMap));
+            var uid = -1;
+            uti.forEach(function lol(value, key){
+              if(value.username == usr){
+                uid = key;
+              }
+            });
+            if(uid == -1){
+              toggle.setAttribute('onclick', "return false;");
+              toggle.setAttribute('disabled', "disabled");
+            }
+          }
+        });
+      }
+    });
+    // console.log(usr);
+  }
+
+  function sc2(){
+    if(document.getElementsByClassName("predictbyrank").length != 0)return;
+    var askRating = document.createElement("div");
+    var asktxt = document.createElement("p");
+    asktxt.innerHTML = 'Use my rating before the contest begins';
+    asktxt.style.float = 'left';
+    asktxt.style.marginTop = '7px';
+    asktxt.style.display = 'inline-block';
+    askRating.setAttribute('class', 'askrating');
+    askRating.append(asktxt);
+    var toggle = document.createElement("input");
+    toggle.style.width = 'auto';
+    toggle.style.marginLeft = '10px';
+    toggle.style.display = 'inline-block';
+    toggle.setAttribute('type', 'checkbox');
+    toggle.setAttribute('class', 'toggleaskrating');
+    var usr = document.querySelectorAll("[data-key]");
+    // console.log(usr);
+    for(var i = 0; i < usr.length; i++){
+      if(usr[i].getAttribute('data-key') == 'username'){
+        usr = usr[i].innerHTML;
+        break;
+      }
+    }
+    var contest = document.URL.toString();
+    contest = contest.split("/");
+    contest = contest[contest.length - 2];
+    present(usr, contest, toggle);
+    askRating.append(toggle);
+    var customRating = document.createElement("div");
+    customRating.setAttribute("class", "customrating");
+    var custMsg = document.createElement("p");
+    custMsg.innerHTML = 'or use custom rating ';
+    custMsg.style.display = 'inline-block';
+    customRating.setAttribute('class', 'predictbyrank');
+    customRating.append(custMsg);
+    var custVal = document.createElement("input");
+    custVal.style.width = 'auto';
+    custVal.style.marginLeft = '10px';
+    custVal.style.display = 'inline-block';
+    custVal.setAttribute('type', 'number');
+    customRating.append(custVal);
+    toggle.addEventListener("click", function(){
+      if(toggle.checked){
+        custVal.value = "";
+        custVal.setAttribute('disabled', "disabled");
+      } else {
+        custVal.removeAttribute('disabled');
+      }
+    });
+    var zNode = document.createElement("div");
+    var txt = document.createElement("p");
+    txt.innerHTML = 'If my rank was ';
+    txt.style.display = 'inline-block';
+    zNode.setAttribute('class', 'predictbyrank');
+    zNode.append(txt);
+    var input = document.createElement("input");
+    input.style.width = 'auto';
+    input.style.marginLeft = '10px';
+    input.style.display = 'inline-block';
+// <button type="submit" class="bp3-button bp3-intent-primary"></button>
+    var resDelta = document.createElement("p");
+    resDelta.innerHTML = "My delta would be: <strong>-</strong>";
+    var btCalc = document.createElement("button");
+    btCalc.setAttribute("class", "bp3-button bp3-intent-primary");
+    btCalc.innerHTML = '<span class="bp3-button-text">calculate</span>';
+    btCalc.addEventListener("click", function(){
+      var usr = document.querySelectorAll("[data-key]");
+      // console.log(usr);
+      for(var i = 0; i < usr.length; i++){
+        if(usr[i].getAttribute('data-key') == 'username'){
+          usr = usr[i].innerHTML;
+          break;
+        }
+      }
+      // console.log(usr);
+      var contest = document.URL.toString();
+      contest = contest.split("/");
+      contest = contest[contest.length - 2];
+      GM_xmlhttpRequest ( {
+        method:     "GET",
+        url:        "https://uriel.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
+        onload:     function (response) {
+          if(response.status >= 300)return;
+          var id = JSON.parse(response.responseText).contest.jid;
+          // console.log(id);
+          GM_xmlhttpRequest ( {
+            method:     "GET",
+            url:        'https://uriel.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
+            onload:     function (response) {
+              if(response.status >= 300)return;
+              var newRating = custVal.value;
+              var newHidRating = custVal.value;
+              if(toggle.checked){
+                var uti = new Map(Object.entries(JSON.parse(response.responseText).profilesMap));
+                var uid = -1;
+                uti.forEach(function lol(value, key){
+                  if(value.username == usr){
+                    uid = key;
+                  }
+                });
+                if(uid == -1){
+                  return;
+                }
+                newRating = getRating(uid, uti).publicRating;
+                newHidRating = getRating(uid, uti).hiddenRating;
+              }
+              if(newRating == "")return;
+              var delta = calc(usr, id, response, 0, true, newRating, newHidRating, input.value) - newRating;
+              var col = 'red';
+              if(delta > 0){
+                delta = '+' + delta.toString();
+                col = 'green';
+              }
+              resDelta.innerHTML = 'My delta would be: <strong style="color:' + col + '">' + delta + '</strong>';
+              // var data = '["' + usr + '"]';
+              // console.log(data);
+            }
+          });
+        }
+      });
+      // console.log(usr);
+    });
+    input.setAttribute('type', 'number');
+    zNode.append(input);
+    var el = document.getElementsByClassName("bp3-card bp3-elevation-0 content-card")[0];
+    el.append(zNode);
+    el.append(askRating);
+    el.append(customRating);
+    el.append(resDelta);
+    el.append(btCalc);
   }
 
   function gmMain () {
