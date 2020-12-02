@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.2
+// @version      2.5.3
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -593,7 +593,7 @@
 
   async function init(){
     if(await GM.getValue("init") != 1){
-      alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never got one before).\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest');
+      alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never got one before).\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest.\nPS: this is used to access TLX\'s API for the delta predictor.');
       GM_xmlhttpRequest ( {
         method:     "GET",
         url:        'https://uriel.tlx.toki.id/api/v2/',
