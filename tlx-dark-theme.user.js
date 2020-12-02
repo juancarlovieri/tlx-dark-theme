@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.0
+// @version      2.5.1
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -590,4 +590,21 @@
       press.click();
     }
   });
+
+  async function init(){
+    if(await GM.getValue("init") != 1){
+      alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never done it before.\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest');
+      GM_xmlhttpRequest ( {
+        method:     "GET",
+        url:        'https://uriel.tlx.toki.id/api/v2/',
+        onload:     function (response){
+
+        }
+      });
+      GM.setValue("init", 1);
+    }
+  }
+
+  init();
+
 })();
