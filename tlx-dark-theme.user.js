@@ -593,7 +593,7 @@
 
   async function init(){
     if(await GM.getValue("init") != 1){
-      alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never done it before.\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest');
+      alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never got one before).\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest');
       GM_xmlhttpRequest ( {
         method:     "GET",
         url:        'https://uriel.tlx.toki.id/api/v2/',
