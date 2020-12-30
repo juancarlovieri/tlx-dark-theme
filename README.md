@@ -32,6 +32,12 @@ Any feedbacks are welcome :D
 
 **Update 30/12/20**: You can now view all problems in one page by pressing "view all problems" below every problem lists. However, this feature is still in beta mode so you will need to enable beta mode to activate this feature. To enable beta mode, click "enable beta" on the top right corner of the screen.
 
+
+Error Codes:
+- Code 1: You need to include the '#' character at the beginning of the Hex Color Code
+- Code 2: The Hex Color Code needs to be 7 characters long
+- Code 3: The Color needs to be in Hex Color Code
+
 ![demo-1](/img/demo-1.png)
 
 
@@ -40,7 +46,3 @@ Any feedbacks are welcome :D
 
 ![demo-3](/img/demo-3.png)
 
-Error Codes:
-- Code 1: You need to include the '#' character at the beginning of the Hex Color Code
-- Code 2: The Hex Color Code needs to be 7 characters long
-- Code 3: The Color needs to be in Hex Color Code
