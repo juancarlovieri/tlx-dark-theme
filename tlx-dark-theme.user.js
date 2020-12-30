@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.6.3
+// @version      2.6.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -199,11 +199,98 @@
     } else document.getElementById("btBeta").innerHTML = "Enable Beta";
   }
 
+  function searchUserPress(node){
+    node = node.target;
+    GM_xmlhttpRequest ( {
+      method:     "GET",
+      url:        'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
+      onload:     function (response){
+        response = response.responseText;
+        response = JSON.parse(response);
+        response = response.page;
+        var res = document.createElement("div");
+        for(var i = 0; i < response.length; ++i){
+          if(response[i].username.toLowerCase().indexOf(node.value.toLowerCase()) != -1){
+            var temp = document.createElement("p");
+            temp.innerHTML = response[i].username;
+            temp.style.display = "block";
+            res.appendChild(temp);
+          }
+        }
+        document.getElementById("userList").innerHTML = "";
+        document.getElementById("userList").appendChild(res);
+      }
+    });
+  }
+
+  function userTab(){
+    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "true");
+    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "true");
+    var tabs = document.getElementsByClassName("bp3-tab");
+    for(var i = 0; i < tabs.length; ++i){
+      if(tabs[i].id == "bp3-tab-title_menubar_user")continue;
+      tabs[i].setAttribute("aria-expanded", "false");
+      tabs[i].setAttribute("aria-selected", "false");
+    }
+
+    var breadcrumb = document.getElementsByClassName("bp3-breadcrumb bp3-breadcrumb-current")[0];
+    breadcrumb.innerHTML = "User search";
+
+    var searchBar = document.createElement("form");
+    var searchInput = document.createElement("div");
+    searchInput.setAttribute("class", "bp3-form-content");
+    searchInput.style.display = "inline-block";
+    searchInput.id = "searchInput";
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "bp3-input";
+    input.onchange = searchUserPress;
+    searchInput.appendChild(input);
+    searchBar.appendChild(searchInput);
+    var contents = document.getElementsByClassName("layout-full-page")[0];
+    contents.innerHTML = "";
+    contents.appendChild(searchBar);
+
+    var userList = document.createElement("div");
+    userList.id = "userList";
+    contents.appendChild(userList);
+  }
+
+  function retractUserTab(node){
+    node = node.target
+    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
+    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
+    window.history.pushState({}, node.innerHTML, node.href);
+    location.reload();
+  }
+
+  async function searchUser(){
+    if(await GM.getValue("beta") == -10)return;
+    if(document.getElementById("bp3-tab-title_menubar_user") != null){
+      return;
+    }
+    var tabs = document.getElementsByClassName("bp3-tab");
+    for(var i = 0; i < tabs.length; ++i){
+      tabs[i].addEventListener("click", retractUserTab, false);
+    }
+    var tablist = document.getElementsByClassName("bp3-tab-list")[0];
+    var newTab = document.createElement("div");
+    newTab.ariaDisabled = "false";
+    newTab.ariaExpanded = "false";
+    newTab.id = "bp3-tab-title_menubar_user";
+    newTab.className = "bp3-tab";
+    newTab.setAttribute("role", "tab");
+    newTab.setAttribute("tabindex", "0");
+    newTab.setAttribute("aria-controls", "bp3-tab-panel_menubar_ranking");
+    newTab.innerHTML = "<a> User Search </a>";
+    newTab.addEventListener("click", userTab, false);
+    tablist.appendChild(newTab);
+  }
+
   window.addEventListener ("load", async function() {
     await beta();
-
+    searchUser();
     credit();
-
     pref();
 
     var zNode = document.createElement ('div');
@@ -670,99 +757,10 @@
     btView.addEventListener("click", viewAllProblem, false);
   }
 
-  function searchUserPress(node){
-    node = node.target;
-    GM_xmlhttpRequest ( {
-      method:     "GET",
-      url:        'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
-      onload:     function (response){
-        response = response.responseText;
-        response = JSON.parse(response);
-        response = response.page;
-        var res = document.createElement("div");
-        for(var i = 0; i < response.length; ++i){
-          if(response[i].username.toLowerCase().indexOf(node.value.toLowerCase()) != -1){
-            var temp = document.createElement("p");
-            temp.innerHTML = response[i].username;
-            temp.style.display = "block";
-            res.appendChild(temp);
-          }
-        }
-        document.getElementById("userList").innerHTML = "";
-        document.getElementById("userList").appendChild(res);
-      }
-    });
-  }
-
-  function userTab(){
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "true");
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "true");
-    var tabs = document.getElementsByClassName("bp3-tab");
-    for(var i = 0; i < tabs.length; ++i){
-      if(tabs[i].id == "bp3-tab-title_menubar_user")continue;
-      tabs[i].setAttribute("aria-expanded", "false");
-      tabs[i].setAttribute("aria-selected", "false");
-    }
-
-    var breadcrumb = document.getElementsByClassName("bp3-breadcrumb bp3-breadcrumb-current")[0];
-    breadcrumb.innerHTML = "User search";
-
-    var searchBar = document.createElement("form");
-    var searchInput = document.createElement("div");
-    searchInput.setAttribute("class", "bp3-form-content");
-    searchInput.style.display = "inline-block";
-    searchInput.id = "searchInput";
-    var input = document.createElement("input");
-    input.type = "text";
-    input.className = "bp3-input";
-    input.onchange = searchUserPress;
-    searchInput.appendChild(input);
-    searchBar.appendChild(searchInput);
-    var contents = document.getElementsByClassName("layout-full-page")[0];
-    contents.innerHTML = "";
-    contents.appendChild(searchBar);
-
-    var userList = document.createElement("div");
-    userList.id = "userList";
-    contents.appendChild(userList);
-  }
-
-  function retractUserTab(node){
-    node = node.target
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
-    window.history.pushState({}, node.innerHTML, node.href);
-    location.reload();
-  }
-
-  async function searchUser(){
-    if(await GM.getValue("beta") == -10)return;
-    if(document.getElementById("bp3-tab-title_menubar_user") != null){
-      return;
-    }
-    var tabs = document.getElementsByClassName("bp3-tab");
-    for(var i = 0; i < tabs.length; ++i){
-      tabs[i].addEventListener("click", retractUserTab, false);
-    }
-    var tablist = document.getElementsByClassName("bp3-tab-list")[0];
-    var newTab = document.createElement("div");
-    newTab.ariaDisabled = "false";
-    newTab.ariaExpanded = "false";
-    newTab.id = "bp3-tab-title_menubar_user";
-    newTab.className = "bp3-tab";
-    newTab.setAttribute("role", "tab");
-    newTab.setAttribute("tabindex", "0");
-    newTab.setAttribute("aria-controls", "bp3-tab-panel_menubar_ranking");
-    newTab.innerHTML = "<a> User Search </a>";
-    newTab.addEventListener("click", userTab, false);
-    tablist.appendChild(newTab);
-  }
-
   function gmMain () {
     console.log('new page');
     window.setTimeout(() => {
       problemPage();
-      searchUser();
       sc();
       var arr = document.getElementsByTagName("PRE");
       for(var i = 0; i < arr.length; i++){
