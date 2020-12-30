@@ -516,13 +516,10 @@
                 col = 'green';
               }
               resDelta.innerHTML = 'My delta would be: <strong style="color:' + col + '">' + delta + '</strong>';
-              // var data = '["' + usr + '"]';
-              // console.log(data);
             }
           });
         }
       });
-      // console.log(usr);
     });
     input.setAttribute('type', 'number');
     zNode.append(input);
@@ -534,9 +531,109 @@
     el.append(btCalc);
   }
 
+  var problemCount, loadedCount = 0, resPage =  document.createElement("div"), arr = [], allLinks = [];
+
+  function cmp(a, b){
+    var idx1 = -1, idx2 = -1;
+    for(var i = 0; i < allLinks.length; ++i){
+      if(allLinks[i] == a[1])idx1 = i;
+      if(allLinks[i] == b[1])idx2 = i;
+    }
+    if(idx1 < idx2)return -1;
+    if(idx1 > idx2)return 1;
+    return 0;
+  }
+
+  function loadedProblem(page, url){
+    loadedCount++;
+    arr[arr.length] = [page, url];
+    if(loadedCount < problemCount)return;
+    if(loadedCount > problemCount){
+      console.log("ERROR");
+    }
+    arr.sort(cmp);
+    for(var i = 0; i < arr.length; ++i){
+      resPage.appendChild(arr[i][0]);
+    }
+    loadedCount = 0;
+    problemCount = 0;
+    arr = [], allLinks = [];
+    var doc = document.implementation.createHTMLDocument("doc");
+    doc.body.appendChild(resPage);
+    var allStyle = document.head.getElementsByTagName("*");
+    for(var i = 0; i < allStyle.length; ++i){
+      if(allStyle[i].tagName == "TITLE")continue;
+      doc.head.appendChild((allStyle[i].cloneNode()));
+    }
+    var newWindow = window.open();
+    allStyle = document.head.getElementsByTagName("STYLE");
+    for(var i = 0; i < allStyle.length; ++i){
+      doc.head.appendChild(allStyle[i].cloneNode(true));
+    }
+    newWindow.document.open();
+    newWindow.document.write(doc.documentElement.innerHTML);
+    newWindow.document.close();
+    resPage =  document.createElement("div");
+  }
+
+  function iframeLoaded(node) {
+    node = node.target
+    setTimeout(function(){ loadedProblem(node.getElementsByClassName("programming-problem-worksheet")[0], node.URL);}, 5000);
+  }
+
+  function viewAllProblem(){
+    var problems = [];
+    var allDivs = document.getElementsByTagName("DIV");
+    for(var i = 0; i < allDivs.length; ++i){
+      if(allDivs[i].className.indexOf("problem-card") != -1 && allDivs[i].className.indexOf("problem-card") == allDivs[i].className.length - 12)problems[problems.length] = allDivs[i];
+    }
+    console.log(problems);
+    if(problems.length == 0)return;
+    problemCount = problems.length;
+    for(var i = 0; i < problems.length; ++i){
+      var link = problems[i].getElementsByTagName("DIV")[0];
+      link = link.getElementsByClassName("content-card-link")[0];
+      allLinks[i] = link.href;
+    }
+    for(var i = 0; i < problems.length; ++i){
+      var link = problems[i].getElementsByTagName("DIV")[0];
+      link = link.getElementsByClassName("content-card-link")[0];
+      var zNode = document.createElement ('iframe');
+      zNode.setAttribute('class', 'loadProblemPage');
+      zNode.setAttribute('height', '0');
+      zNode.setAttribute('width', '0');
+      zNode.src = link.href;
+      document.body.appendChild(zNode);
+      zNode.onreadystatechange = function(e){
+        if(zNode.readyState == 'complete'){
+          iframeLoaded(e);
+        }
+      }
+      zNode.contentWindow.addEventListener("load", iframeLoaded, false);
+    }
+  }
+
+  function problemPage(){
+    var problems = [];
+    var allDivs = document.getElementsByTagName("DIV");
+    for(var i = 0; i < allDivs.length; ++i){
+      if(allDivs[i].className.indexOf("problem-card") != -1 && allDivs[i].className.indexOf("problem-card") == allDivs[i].className.length - 12)problems[problems.length] = allDivs[i];
+    }
+    if(problems.length == 0)return;
+    var check = document.getElementById('viewAllProblem');
+    if(check != null)return;
+    var btView = document.createElement('button');
+    btView.setAttribute('class', 'bp3-button bp3-intent-primary');
+    btView.setAttribute('id', 'viewAllProblem');
+    btView.innerHTML = "View All Problems";
+    problems[0].parentNode.appendChild(btView);
+    btView.addEventListener("click", viewAllProblem, false);
+  }
+
   function gmMain () {
     console.log('new page');
     window.setTimeout(() => {
+      problemPage();
       sc();
       var arr = document.getElementsByTagName("PRE");
       for(var i = 0; i < arr.length; i++){
