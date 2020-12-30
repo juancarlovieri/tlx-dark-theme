@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.8
+// @version      2.5.9
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -593,7 +593,7 @@
     loadedCount = 0;
     problemCount = 0;
     arr = [], allLinks = [];
-    var doc = document.implementation.createHTMLDocument("doc");
+    var doc = document.implementation.createHTMLDocument("View Problems");
     doc.body.appendChild(resPage);
     var allStyle = document.head.getElementsByTagName("*");
     for(var i = 0; i < allStyle.length; ++i){
