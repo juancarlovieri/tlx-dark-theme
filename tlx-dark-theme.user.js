@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.9
+// @version      2.6.0
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -19,7 +19,6 @@
   async function init(){
     if(await GM.getValue("color") == null)await GM.setValue("color", "#e3e3e3");
     if(await GM.getValue("dark") == null)await GM.setValue("dark", "10");
-      console.log(await GM.getValue("color"));
     if(await GM.getValue("beta") == null)await GM.setValue("beta", "-10");
   }
 
@@ -622,7 +621,7 @@
     for(var i = 0; i < allDivs.length; ++i){
       if(allDivs[i].className.indexOf("problem-card") != -1 && allDivs[i].className.indexOf("problem-card") == allDivs[i].className.length - 12)problems[problems.length] = allDivs[i];
     }
-    console.log(problems);
+    // console.log(problems);
     if(problems.length == 0)return;
     problemCount = problems.length;
     for(var i = 0; i < problems.length; ++i){
