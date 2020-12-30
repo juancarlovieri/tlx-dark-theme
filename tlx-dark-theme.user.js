@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.7
+// @version      2.5.8
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -569,6 +569,9 @@
     for(var i = 0; i < allLinks.length; ++i){
       if(allLinks[i] == a[1])idx1 = i;
       if(allLinks[i] == b[1])idx2 = i;
+    }
+    if(idx1 == -1 || idx2 == -1){
+      alert("an error occured, error code: 5");
     }
     if(idx1 < idx2)return -1;
     if(idx1 > idx2)return 1;
