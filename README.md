@@ -30,6 +30,8 @@ Any feedbacks are welcome :D
 **Update 13/11/20**: Delta predictor has been added to the scoreboard so participants can predict their new rating. (just like CF predictor). 
 <br>PS: If a dialog showing "A userscript wants to access a cross-origin resource." appears, click on "Always allow". 
 
+**Update 30/12/20**: You can now view all problems in one page by pressing "view all problems" below every problem lists. However, this feature is still in beta mode so you will need to enable beta mode to activate this feature. To enable beta mode, click "enable beta" on the top right corner of the screen.
+
 ![demo-1](/img/demo-1.png)
 
 
