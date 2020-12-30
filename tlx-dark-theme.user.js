@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.4
+// @version      2.5.5
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -15,6 +15,8 @@
 
 (function() {
   'use strict';
+
+  var beta = 0;
 
   async function init(){
     if(await GM.getValue("color") == null)await GM.setValue("color", "#e3e3e3");
@@ -633,7 +635,7 @@
   function gmMain () {
     console.log('new page');
     window.setTimeout(() => {
-      problemPage();
+      if(beta)problemPage();
       sc();
       var arr = document.getElementsByTagName("PRE");
       for(var i = 0; i < arr.length; i++){
