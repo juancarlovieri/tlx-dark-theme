@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.3
+// @version      2.5.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -101,7 +101,10 @@
   function credit(){
     var zNode = document.createElement('div');
     zNode.innerHTML = 'Dark Theme by Vieri Corp.™️ All Rights Reserved.'
-    zNode.setAttribute('id', 'darkThemeCredit');
+    zNode.style.position = 'relative';
+    zNode.style.height = '0';
+    zNode.style.width = '100%';
+    zNode.style.textAlign = 'center';
     var arr = document.getElementsByClassName('footer__text');
     if(arr.length != 1)return;
     var cur = arr[0];
