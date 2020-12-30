@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.5.5
+// @version      2.5.6
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -16,12 +16,11 @@
 (function() {
   'use strict';
 
-  var beta = 0;
-
   async function init(){
     if(await GM.getValue("color") == null)await GM.setValue("color", "#e3e3e3");
     if(await GM.getValue("dark") == null)await GM.setValue("dark", "10");
       console.log(await GM.getValue("color"));
+    if(await GM.getValue("beta") == null)await GM.setValue("beta", "-10");
   }
 
   init();
@@ -61,7 +60,7 @@
     elem.id = 'tlx-dark-theme';
     elem.type = 'text/css';
     elem.innerText = style;
-    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#e3e3e3;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#282828;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:transparent !important;color:#707070 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}.diff{background-color:#303030 !important}`;
+    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#e3e3e3;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#282828;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:transparent !important;color:#707070 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}.diff{background-color:#303030 !important}`;
     var elem2 = document.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
@@ -80,7 +79,7 @@
   async function applyLight(){
     if(await GM.getValue("dark") == 10)return;
     await rmDark();
-    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#404040;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus{outline:0}button#btDark{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
+    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#404040;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
     var elem2 = document.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
@@ -171,8 +170,38 @@
         "click", ask, false
     );
   }
+  async function beta(){
+    var zNode = document.createElement ('div');
+    zNode.innerHTML = '<button id="btBeta" type="button" class="btBeta> <img src="https"//foo.com alt="dark"/>'
+                    + 'switch</button>'
+                    ;
+    zNode.setAttribute ('id', 'btBetaContainer');
+    var arr = document.getElementsByClassName("bp3-navbar header");
+    if(arr.length != 1){
+      return;
+    }
+    var head = arr[0];
+    head.prepend(zNode);
+    async function toggleBeta(zEvent){
+      if(await GM.getValue("beta") == 10){
+        await GM.setValue("beta", -10);
+        location.reload();
+      } else {
+        await GM.setValue("beta", 10);
+        location.reload();
+      }
+    }
+    document.getElementById("btBeta").addEventListener (
+        "click", toggleBeta, false
+    );
 
-  window.addEventListener ("load", function() {
+    if(await GM.getValue("beta") == 10){
+      document.getElementById("btBeta").innerHTML = "Disable Beta";
+    } else document.getElementById("btBeta").innerHTML = "Enable Beta";
+  }
+
+  window.addEventListener ("load", async function() {
+    await beta();
 
     credit();
 
@@ -615,7 +644,8 @@
     }
   }
 
-  function problemPage(){
+  async function problemPage(){
+    if(await GM.getValue("beta") == -10)return;
     var problems = [];
     var allDivs = document.getElementsByTagName("DIV");
     for(var i = 0; i < allDivs.length; ++i){
@@ -635,7 +665,7 @@
   function gmMain () {
     console.log('new page');
     window.setTimeout(() => {
-      if(beta)problemPage();
+      problemPage();
       sc();
       var arr = document.getElementsByTagName("PRE");
       for(var i = 0; i < arr.length; i++){
@@ -693,7 +723,7 @@
     }
   });
 
-  async function init(){
+  async function init2(){
     if(await GM.getValue("init") != 1){
       alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never got one before).\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest.\nPS: this is used to access TLX\'s API for the delta predictor.');
       GM_xmlhttpRequest ( {
@@ -707,6 +737,6 @@
     }
   }
 
-  init();
+  init2();
 
 })();
