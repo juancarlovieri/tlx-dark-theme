@@ -37,6 +37,7 @@ Error Codes:
 - Code 1: You need to include the '#' character at the beginning of the Hex Color Code
 - Code 2: The Hex Color Code needs to be 7 characters long
 - Code 3: The Color needs to be in Hex Color Code
+- Code 4: Report to developer
 
 ![demo-1](/img/demo-1.png)
 
