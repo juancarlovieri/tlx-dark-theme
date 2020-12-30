@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.6.0
+// @version      2.6.1
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -599,15 +599,20 @@
       if(allStyle[i].tagName == "TITLE")continue;
       doc.head.appendChild((allStyle[i].cloneNode()));
     }
+
+    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#404040;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
+    var elem2 = doc.createElement('style');
+    elem2.id = 'tlx-dark-theme-additional';
+    elem2.type = 'text/css';
+    elem2.innerText = style2;
+    doc.head.appendChild(elem2);
+
     var newWindow = window.open();
-    allStyle = document.head.getElementsByTagName("STYLE");
-    for(var i = 0; i < allStyle.length; ++i){
-      doc.head.appendChild(allStyle[i].cloneNode(true));
-    }
     newWindow.document.open();
     newWindow.document.write(doc.documentElement.innerHTML);
     newWindow.document.close();
     resPage =  document.createElement("div");
+
   }
 
   function iframeLoaded(node) {
