@@ -204,6 +204,7 @@
   function userSearchCmp(a, b){
     if(a.rating == null)return 1;
     if(b.rating == null)return -1;
+    // return scoreList[b.username] - scoreList[a.username];
     return b.rating.publicRating - a.rating.publicRating;
   }
 
@@ -264,7 +265,7 @@
       }
 
       var score = document.createElement("td");
-      score.innerHTML = scoreList[filtered[i].JID];
+      score.innerHTML = scoreList[filtered[i].username];
       username.appendChild(handle);
       row.appendChild(username);
       row.appendChild(rating);
@@ -275,25 +276,26 @@
     divTable.appendChild(table);
     document.getElementById("userList").innerHTML = "";
     document.getElementById("userList").appendChild(divTable);
+    node.innerHTML = "Search";
     return false;
   }
 
-  function convertScoreList(){
-    var res = {};
-    for(var i = 0; i < scoreList.length; ++i){
-      res[scoreList[i].userJid] = scoreList[i].totalScores;
+  function combineRankScore(response){
+    for(var i = 0; i < response.length; ++i){
+      if(scoreList[response[i].username] == null){
+        scoreList[response[i].username] = 0;
+        userList[response[i].username] = response[i];
+      }
     }
-    scoreList = res;
   }
 
-  function userListDownload(response){
+  function rankDownload(response){
     response = response.responseText;
     response = JSON.parse(response);
-    userList = response.profilesMap;
-    scoreList = response.data.page;
-    convertScoreList();
+    response = response.page;
+    combineRankScore(response);
     // console.log(scoreList);
-    var searchBar = document.createElement("form");
+    var searchBar = document.createElement("div");
     var searchInput = document.createElement("div");
     searchInput.setAttribute("class", "bp3-form-content");
     searchInput.style.display = "inline-block";
@@ -306,7 +308,8 @@
     searchBar.appendChild(searchInput);
     var btSearch = document.createElement("button");
     btSearch.className = "bp3-button bp3-intent-primary search-box-button";
-    btSearch.onclick = searchUserPress;
+    // btSearch.addEventListener("click", changeBt, true);
+    btSearch.addEventListener("click", searchUserPress, false);
     btSearch.innerHTML = "Search";
     btSearch.style.margin = "20px";
     searchBar.appendChild(btSearch);
@@ -318,6 +321,29 @@
     contents.appendChild(res);
 
     btSearch.click();
+  }
+
+  function convertScoreList(){
+    var res = {};
+    for(var i = 0; i < scoreList.length; ++i){
+      // console.log(userList[scoreList[i].userJid);
+      if(userList[scoreList[i].userJid] == null)continue;
+      res[userList[scoreList[i].userJid].username] = scoreList[i].totalScores;
+    }
+    scoreList = res;
+  }
+
+  function userListDownload(response){
+    response = response.responseText;
+    response = JSON.parse(response);
+    userList = response.profilesMap;
+    scoreList = response.data.page;
+    convertScoreList();
+    GM_xmlhttpRequest ( {
+      method:     "GET",
+      url:        'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
+      onload:     rankDownload
+    });
   }
 
   function userTab(){
