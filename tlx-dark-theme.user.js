@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.6.6
+// @version      2.6.7
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -199,7 +199,7 @@
     } else document.getElementById("btBeta").innerHTML = "Enable Beta";
   }
 
-  var userList;
+  var userList, scoreList;
 
   function userSearchCmp(a, b){
     if(a.rating == null)return 1;
@@ -218,7 +218,7 @@
     table.className = "bp3-html-table bp3-html-table-striped table-list ratings-page-table";
     var head = document.createElement("thead");
     var headtr = document.createElement("tr");
-    headtr.innerHTML = '<th style="width:80%;">User</th><th>Rating</th>';
+    headtr.innerHTML = '<th style="width:60%;">User</th><th style="width:20%;">Rating</th><th>Score</th>';
     head.appendChild(headtr);
     table.appendChild(head);
 
@@ -227,6 +227,7 @@
 
     for(var i in userList){
       if(userList[i].username.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1){
+        userList[i].JID = i;
         filtered[filtered.length] = userList[i];
       }
     }
@@ -261,9 +262,13 @@
       } else{
         handle.className = "user-ref__username rating-unrated";
       }
+
+      var score = document.createElement("td");
+      score.innerHTML = scoreList[filtered[i].JID];
       username.appendChild(handle);
       row.appendChild(username);
       row.appendChild(rating);
+      row.appendChild(score);
       body.appendChild(row);
     }
     table.appendChild(body);
@@ -273,11 +278,21 @@
     return false;
   }
 
+  function convertScoreList(){
+    var res = {};
+    for(var i = 0; i < scoreList.length; ++i){
+      res[scoreList[i].userJid] = scoreList[i].totalScores;
+    }
+    scoreList = res;
+  }
+
   function userListDownload(response){
     response = response.responseText;
     response = JSON.parse(response);
-    response = response.profilesMap;
-    userList = response;
+    userList = response.profilesMap;
+    scoreList = response.data.page;
+    convertScoreList();
+    // console.log(scoreList);
     var searchBar = document.createElement("form");
     var searchInput = document.createElement("div");
     searchInput.setAttribute("class", "bp3-form-content");
@@ -301,6 +316,8 @@
     var res = document.createElement("div");
     res.id = "userList";
     contents.appendChild(res);
+
+    btSearch.click();
   }
 
   function userTab(){
