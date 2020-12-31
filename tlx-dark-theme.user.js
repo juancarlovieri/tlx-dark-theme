@@ -199,13 +199,19 @@
     } else document.getElementById("btBeta").innerHTML = "Enable Beta";
   }
 
-  var userList, scoreList;
+  var userList, scoreList, sortBy;
 
   function userSearchCmp(a, b){
-    if(a.rating == null)return 1;
-    if(b.rating == null)return -1;
-    // return scoreList[b.username] - scoreList[a.username];
-    return b.rating.publicRating - a.rating.publicRating;
+    if(sortBy == 'rating'){
+      if(a.rating == null)return 1;
+      if(b.rating == null)return -1;
+      return b.rating.publicRating - a.rating.publicRating;
+    }
+    if(sortBy == 'score')return scoreList[b.username] - scoreList[a.username];
+    if(a.username.toLowerCase() < b.username.toLowerCase()){
+      return -1;
+    } else if(a.username.toLowerCase() == b.username.toLowerCase())return 0;
+    return 1;
   }
 
   function searchUserPress(node){
@@ -233,6 +239,9 @@
       }
     }
 
+    if(document.getElementById('byRating').checked)sortBy = 'rating';
+    if(document.getElementById('byScore').checked)sortBy = 'score';
+    if(document.getElementById('byUsername').checked)sortBy = 'username';
     filtered.sort(userSearchCmp);
 
     for(var i in filtered){
@@ -315,10 +324,34 @@
     searchBar.appendChild(btSearch);
     var contents = document.getElementsByClassName("layout-full-page")[0];
     contents.innerHTML = "";
-    contents.appendChild(searchBar);
     var res = document.createElement("div");
     res.id = "userList";
+    res.style.display = "inline-block";
+    res.style.width = "80%";
+    var sort = document.createElement("div");
+    sort.className = "bp3-card bp3-elevation-0 content-card";
+    sort.style.display = "inline-block";
+    sort.style.verticalAlign = "top";
+    sort.style.width = "15%";
+    sort.style.marginRight = "20px";
+    sort.style.marginLeft = "10px";
+    sort.innerHTML = "<h4>Sort By</h4>";
+    var byRating = document.createElement("label");
+    byRating.className = 'bp3-control bp3-radio';
+    byRating.innerHTML = '<input name="archiveSlug" type="radio" id="byRating"><span class="bp3-control-indicator"></span><span>Rating</span>';
+    var byScore = document.createElement("label");
+    byScore.className = 'bp3-control bp3-radio';
+    byScore.innerHTML = '<input name="archiveSlug" type="radio" id="byScore"><span class="bp3-control-indicator"></span><span>Score</span>';
+    var byUsername = document.createElement("label");
+    byUsername.className = 'bp3-control bp3-radio';
+    byUsername.innerHTML = '<input name="archiveSlug" type="radio" id="byUsername"><span class="bp3-control-indicator"></span><span>Username</span>';
+    sort.appendChild(byRating);
+    sort.appendChild(byScore);
+    sort.appendChild(byUsername);
+    contents.appendChild(searchBar);
+    contents.appendChild(sort);
     contents.appendChild(res);
+    document.getElementById("byRating").click();
 
     btSearch.click();
   }
@@ -946,3 +979,4 @@
   init2();
 
 })();
+  
