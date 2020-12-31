@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.6.4
+// @version      2.6.5
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -201,34 +201,90 @@
 
   var userList;
 
+  function userSearchCmp(a, b){
+    if(a.rating == null)return 1;
+    if(b.rating == null)return -1;
+    return b.rating.publicRating - a.rating.publicRating;
+  }
+
   function searchUserPress(node){
     node = node.target;
     var searchInput = document.getElementsByClassName("bp3-input")[0];
     var res = document.createElement("div");
-    for(var i = 0; i < userList.length; ++i){
+
+    var divTable = document.createElement("div");
+    divTable.className = "bp3-card bp3-elevation-0 card__content";
+    var table = document.createElement("table");
+    table.className = "bp3-html-table bp3-html-table-striped table-list ratings-page-table";
+    var head = document.createElement("thead");
+    var headtr = document.createElement("tr");
+    headtr.innerHTML = '<th style="width:80%;">User</th><th>Rating</th>';
+    head.appendChild(headtr);
+    table.appendChild(head);
+
+    var body = document.createElement("tbody");
+    var filtered = [];
+
+    for(var i in userList){
       if(userList[i].username.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1){
-        var temp = document.createElement("p");
-        temp.innerHTML = userList[i].username;
-        temp.style.display = "block";
-        res.appendChild(temp);
+        filtered[filtered.length] = userList[i];
       }
     }
+
+    filtered.sort(userSearchCmp);
+
+    for(var i in filtered){
+      var row = document.createElement("tr");
+      var username = document.createElement("td");
+      if(filtered[i].country != null && filtered[i].country != ""){
+        var img = document.createElement("img");
+        img.alt = filtered[i].country;
+        img.src = "/flags/flags-iso/shiny/24/" + filtered[i].country + ".png";
+        img.className = "user-ref__flag";
+        username.appendChild(img);
+      }
+      var handle = document.createElement("a");
+      handle.href = "/profiles/" + filtered[i].username;
+      handle.innerHTML = filtered[i].username;
+      var rating = document.createElement("td");
+      rating.innerHTML = "0";
+      if(filtered[i].rating != null){
+        rating.innerHTML = filtered[i].rating.publicRating;
+        handle.className = "user-ref__username rating-gray";
+        var pubR = filtered[i].rating.publicRating;
+        if(pubR >= 1650)handle.className = "user-ref__username rating-green";
+        if(pubR >= 1750)handle.className = "user-ref__username rating-blue";
+        if(pubR >= 2000)handle.className = "user-ref__username rating-purple";
+        if(pubR >= 2200)handle.className = "user-ref__username rating-orange";
+        if(pubR >= 2500)handle.className = "user-ref__username rating-red";
+        if(pubR >= 3000)handle.className = "user-ref__username rating-legend";
+      } else{
+        handle.className = "user-ref__username rating-unrated";
+      }
+      username.appendChild(handle);
+      row.appendChild(username);
+      row.appendChild(rating);
+      body.appendChild(row);
+    }
+    table.appendChild(body);
+    divTable.appendChild(table);
     document.getElementById("userList").innerHTML = "";
-    document.getElementById("userList").appendChild(res);
+    document.getElementById("userList").appendChild(divTable);
     return false;
   }
 
   function userListDownload(response){
     response = response.responseText;
     response = JSON.parse(response);
-    response = response.page;
+    response = response.profilesMap;
     userList = response;
+    // console.log(userList);
   }
 
   function userTab(){
     GM_xmlhttpRequest ( {
       method:     "GET",
-      url:        'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
+      url:        'https://jerahmeel.tlx.toki.id/api/v2/user-stats/top?page=1&pageSize=1000000000',
       onload:     userListDownload
     });
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "true");
@@ -272,8 +328,7 @@
     node = node.target
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
-    window.history.pushState({}, node.innerHTML, node.href);
-    location.reload();
+    if(node.href == location.href)location.reload();
   }
 
   async function searchUser(){
