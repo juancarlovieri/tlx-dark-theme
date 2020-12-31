@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.0
+// @version      2.7.1
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -389,8 +389,8 @@
       tabs[i].setAttribute("aria-selected", "false");
     }
 
-    var breadcrumb = document.getElementsByClassName("bp3-breadcrumb bp3-breadcrumb-current")[0];
-    breadcrumb.innerHTML = "User search";
+    // var breadcrumb = document.getElementsByClassName("bp3-breadcrumb bp3-breadcrumb-current")[0];
+    // breadcrumb.innerHTML = "User search";
     var contents = document.getElementsByClassName("layout-full-page")[0];
     contents.innerHTML = '<div class="bp3-progress-bar loading-state"><div class="bp3-progress-meter"></div></div>';
 
@@ -403,9 +403,13 @@
 
   function retractUserTab(node){
     node = node.target
+    console.log(node.href);
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
-    if(location.href.indexOf(node.href) != -1)location.reload();
+    if(location.href.indexOf(node.href) != -1){
+      location.replace(node.href);
+      // location.reload();
+    }
   }
 
   async function searchUser(){
