@@ -199,31 +199,38 @@
     } else document.getElementById("btBeta").innerHTML = "Enable Beta";
   }
 
+  var userList;
+
   function searchUserPress(node){
     node = node.target;
-    GM_xmlhttpRequest ( {
-      method:     "GET",
-      url:        'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
-      onload:     function (response){
-        response = response.responseText;
-        response = JSON.parse(response);
-        response = response.page;
-        var res = document.createElement("div");
-        for(var i = 0; i < response.length; ++i){
-          if(response[i].username.toLowerCase().indexOf(node.value.toLowerCase()) != -1){
-            var temp = document.createElement("p");
-            temp.innerHTML = response[i].username;
-            temp.style.display = "block";
-            res.appendChild(temp);
-          }
-        }
-        document.getElementById("userList").innerHTML = "";
-        document.getElementById("userList").appendChild(res);
+    var searchInput = document.getElementsByClassName("bp3-input")[0];
+    var res = document.createElement("div");
+    for(var i = 0; i < userList.length; ++i){
+      if(userList[i].username.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1){
+        var temp = document.createElement("p");
+        temp.innerHTML = userList[i].username;
+        temp.style.display = "block";
+        res.appendChild(temp);
       }
-    });
+    }
+    document.getElementById("userList").innerHTML = "";
+    document.getElementById("userList").appendChild(res);
+    return false;
+  }
+
+  function userListDownload(response){
+    response = response.responseText;
+    response = JSON.parse(response);
+    response = response.page;
+    userList = response;
   }
 
   function userTab(){
+    GM_xmlhttpRequest ( {
+      method:     "GET",
+      url:        'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
+      onload:     userListDownload
+    });
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "true");
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "true");
     var tabs = document.getElementsByClassName("bp3-tab");
@@ -244,9 +251,14 @@
     var input = document.createElement("input");
     input.type = "text";
     input.className = "bp3-input";
-    input.onchange = searchUserPress;
+    // input.onchange = searchUserPress;
     searchInput.appendChild(input);
     searchBar.appendChild(searchInput);
+    var btSearch = document.createElement("button");
+    btSearch.className = "bp3-button bp3-intent-primary search-box-button";
+    btSearch.onclick = searchUserPress;
+    btSearch.innerHTML = "Search";
+    searchBar.appendChild(btSearch);
     var contents = document.getElementsByClassName("layout-full-page")[0];
     contents.innerHTML = "";
     contents.appendChild(searchBar);
