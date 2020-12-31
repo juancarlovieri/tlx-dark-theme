@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.6.8
+// @version      2.6.9
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -372,7 +372,7 @@
     node = node.target
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
-    if(node.href == location.href)location.reload();
+    if(location.href.indexOf(node.href) != -1)location.reload();
   }
 
   async function searchUser(){
