@@ -34,6 +34,8 @@ Any feedbacks are welcome :D
 
 **Update 30/12/20**:<br>- Added beta mode. To enable, click "enable beta" on the top right corner of the screen.<br>- You can now view all problems in one page by pressing "view all problems" below every problem lists. However, this feature is still in beta mode.
 
+**Update 31/12/20**:<br>- Added "User Search" feature where you can search for people in TLX by their username. However, this feature is still in beta mode.
+
 
 Error Codes:
 - Code 1: You need to include the '#' character at the beginning of the Hex Color Code
