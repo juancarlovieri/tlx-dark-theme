@@ -18,19 +18,21 @@ If your script is not updating:
 
 You can find the error codes at the buttom of this README
 
+To toggle beta mode, click "enable beta"/"disable beta" on the top right corner of the screen.
+
 Any feedbacks are welcome :D
 
-**Update 21/09/20**: Added copy button to copy the samples.
+**Update 21/09/20**:<br>- Added copy button to copy the samples.
 
-**Update 07/10/20**: You can use `alt` + `arrow up` or `arrow down` on your keyboard to move between contest menus (overview, announcement, problems, clarification, scoreboard, etc.)
+**Update 07/10/20**:<br>- You can use `alt` + `arrow up` or `arrow down` on your keyboard to move between contest menus (overview, announcement, problems, clarification, scoreboard, etc.)
 
-**Update 08/10/20**: You can easily toggle between light and dark mode using the button at the top right corner of the screen.
+**Update 08/10/20**:<br>- You can easily toggle between light and dark mode using the button at the top right corner of the screen.
 
-**Update 11/10/20**: You can now customize the color of problem statement by clicking the preference button below the Dark/Light button (at the top-right corner of the screen).
-**Update 13/11/20**: Delta predictor has been added to the scoreboard so participants can predict their new rating. (just like CF predictor). 
-<br>PS: If a dialog showing "A userscript wants to access a cross-origin resource." appears, click on "Always allow". 
+**Update 11/10/20**:<br>- You can now customize the color of the problem statement by clicking the preference button below the Dark/Light button (at the top-right corner of the screen).
 
-**Update 30/12/20**: You can now view all problems in one page by pressing "view all problems" below every problem lists. However, this feature is still in beta mode so you will need to enable beta mode to activate this feature. To enable beta mode, click "enable beta" on the top right corner of the screen.
+**Update 13/11/20**:<br>- Delta predictor has been added to the scoreboard so participants can predict their new rating. (just like CF predictor).<br>PS: If a dialog showing "A userscript wants to access a cross-origin resource." appears, click on "Always allow".
+
+**Update 30/12/20**:<br>- Added beta mode. To enable, click "enable beta" on the top right corner of the screen.<br>- You can now view all problems in one page by pressing "view all problems" below every problem lists. However, this feature is still in beta mode.
 
 
 Error Codes:
