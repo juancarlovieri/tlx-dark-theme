@@ -278,15 +278,32 @@
     response = JSON.parse(response);
     response = response.profilesMap;
     userList = response;
-    // console.log(userList);
+    var searchBar = document.createElement("form");
+    var searchInput = document.createElement("div");
+    searchInput.setAttribute("class", "bp3-form-content");
+    searchInput.style.display = "inline-block";
+    searchInput.id = "searchInput";
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "bp3-input";
+    input.style.margin = "10px";
+    searchInput.appendChild(input);
+    searchBar.appendChild(searchInput);
+    var btSearch = document.createElement("button");
+    btSearch.className = "bp3-button bp3-intent-primary search-box-button";
+    btSearch.onclick = searchUserPress;
+    btSearch.innerHTML = "Search";
+    btSearch.style.margin = "20px";
+    searchBar.appendChild(btSearch);
+    var contents = document.getElementsByClassName("layout-full-page")[0];
+    contents.innerHTML = "";
+    contents.appendChild(searchBar);
+    var res = document.createElement("div");
+    res.id = "userList";
+    contents.appendChild(res);
   }
 
   function userTab(){
-    GM_xmlhttpRequest ( {
-      method:     "GET",
-      url:        'https://jerahmeel.tlx.toki.id/api/v2/user-stats/top?page=1&pageSize=1000000000',
-      onload:     userListDownload
-    });
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "true");
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "true");
     var tabs = document.getElementsByClassName("bp3-tab");
@@ -298,30 +315,14 @@
 
     var breadcrumb = document.getElementsByClassName("bp3-breadcrumb bp3-breadcrumb-current")[0];
     breadcrumb.innerHTML = "User search";
-
-    var searchBar = document.createElement("form");
-    var searchInput = document.createElement("div");
-    searchInput.setAttribute("class", "bp3-form-content");
-    searchInput.style.display = "inline-block";
-    searchInput.id = "searchInput";
-    var input = document.createElement("input");
-    input.type = "text";
-    input.className = "bp3-input";
-    // input.onchange = searchUserPress;
-    searchInput.appendChild(input);
-    searchBar.appendChild(searchInput);
-    var btSearch = document.createElement("button");
-    btSearch.className = "bp3-button bp3-intent-primary search-box-button";
-    btSearch.onclick = searchUserPress;
-    btSearch.innerHTML = "Search";
-    searchBar.appendChild(btSearch);
     var contents = document.getElementsByClassName("layout-full-page")[0];
-    contents.innerHTML = "";
-    contents.appendChild(searchBar);
+    contents.innerHTML = '<div class="bp3-progress-bar loading-state"><div class="bp3-progress-meter"></div></div>';
 
-    var userList = document.createElement("div");
-    userList.id = "userList";
-    contents.appendChild(userList);
+    GM_xmlhttpRequest ( {
+      method:     "GET",
+      url:        'https://jerahmeel.tlx.toki.id/api/v2/user-stats/top?page=1&pageSize=1000000000',
+      onload:     userListDownload
+    });
   }
 
   function retractUserTab(node){
