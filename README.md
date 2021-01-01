@@ -36,6 +36,8 @@ Any feedbacks are welcome :D
 
 **Update 31/12/20**:<br>- Added "User Search" feature where you can search for people in TLX by their username. However, this feature is still in beta mode.
 
+**Update 01/01/21**:<br>- Added "Settings" tab instead of clutters on top right screen
+
 
 Error Codes:
 - Code 1: You need to include the '#' character at the beginning of the Hex Color Code
