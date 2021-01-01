@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.2
+// @version      2.7.3
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -623,7 +623,7 @@
     newTab.setAttribute("role", "tab");
     newTab.setAttribute("tabindex", "0");
     newTab.setAttribute("aria-controls", "bp3-tab-panel_menubar_ranking");
-    newTab.innerHTML = "<a> Preferences </a>";
+    newTab.innerHTML = "<a> Settings </a>";
     newTab.addEventListener("click", onPrefTab, false);
     tablist.appendChild(newTab);
   }
