@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.1
+// @version      2.7.2
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -19,7 +19,9 @@
   async function init(){
     if(await GM.getValue("color") == null)await GM.setValue("color", "#e3e3e3");
     if(await GM.getValue("dark") == null)await GM.setValue("dark", "10");
+    if(await GM.getValue("user") == null)await GM.setValue("user", "10");
     if(await GM.getValue("beta") == null)await GM.setValue("beta", "-10");
+    if(await GM.getValue("copy") == null)await GM.setValue("copy", "10");
   }
 
   init();
@@ -317,7 +319,6 @@
     searchBar.appendChild(searchInput);
     var btSearch = document.createElement("button");
     btSearch.className = "bp3-button bp3-intent-primary search-box-button";
-    // btSearch.addEventListener("click", changeBt, true);
     btSearch.addEventListener("click", searchUserPress, false);
     btSearch.innerHTML = "Search";
     btSearch.style.margin = "20px";
@@ -389,8 +390,6 @@
       tabs[i].setAttribute("aria-selected", "false");
     }
 
-    // var breadcrumb = document.getElementsByClassName("bp3-breadcrumb bp3-breadcrumb-current")[0];
-    // breadcrumb.innerHTML = "User search";
     var contents = document.getElementsByClassName("layout-full-page")[0];
     contents.innerHTML = '<div class="bp3-progress-bar loading-state"><div class="bp3-progress-meter"></div></div>';
 
@@ -401,19 +400,190 @@
     });
   }
 
+  async function savePref(){
+    var textColor = document.getElementById('textColor');
+    var res = textColor.value.toLowerCase();
+    if(res == "default"){
+      await GM.setValue('color', '#e3e3e3');
+      await applyDark();
+      await applyLight();
+      alert('success!');
+      return;
+    }
+    if(res.length != 7){
+      alert('invalid! (Code:2)');
+      return;
+    }
+    if(res[0] != '#'){
+      alert('invalid! (Code:1)');
+      return;
+    }
+    for(var i = 1; i < 7; ++i){
+      if(parseInt(res[i]) >= 0 && parseInt(res[i]) < 10)continue;
+      var temp = cek(res[i]);
+      if(temp)continue;
+      alert('invalid! (Code:3)');
+      return;
+    }
+    await GM.setValue('color', res);
+    await applyDark();
+    await applyLight();
+
+    var toggleDark = document.getElementById("toggleDark");
+    if(toggleDark.checked)await GM.setValue("dark", 10);
+    else await GM.setValue("dark", -10);
+
+    var toggleBeta = document.getElementById("toggleBeta");
+    if(toggleBeta.checked)await GM.setValue("beta", 10);
+    else await GM.setValue("beta", -10);
+
+    var toggleUser = document.getElementById("toggleUser");
+    if(toggleUser.checked)await GM.setValue("user", 10);
+    else await GM.setValue("user", -10);
+
+    var toggleCopy = document.getElementById("toggleCopy");
+    if(toggleCopy.checked)await GM.setValue("copy", 10);
+    else await GM.setValue("copy", -10);
+
+
+    alert('success!');
+    location.reload();
+  }
+
+  async function onPrefTab(){
+    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-expanded", "true");
+    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-selected", "true");
+    var tabs = document.getElementsByClassName("bp3-tab");
+    for(var i = 0; i < tabs.length; ++i){
+      if(tabs[i].id == "bp3-tab-title_menubar_preferences")continue;
+      tabs[i].setAttribute("aria-expanded", "false");
+      tabs[i].setAttribute("aria-selected", "false");
+    }
+    var contents = document.getElementsByClassName("layout-full-page")[0];
+    contents.innerHTML = "";
+    var textColor = document.createElement("div");
+    textColor.setAttribute("class", "bp3-form-content");
+    textColor.style.display = "inline-block";
+    textColor.innerHTML = '<p style="width:auto;display:inline-block;">Text Color: </p>'
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "bp3-input";
+    input.style.margin = "10px";
+    input.id = "textColor";
+    input.style.width = "auto";
+    input.style.display = "inline-block";
+    input.value = await GM.getValue("color");
+    var btInfoColor = document.createElement("div");
+    btInfoColor.style.verticalAlign = "middle";
+    btInfoColor.style.display = "inline-block";
+    btInfoColor.title = 'Font color for problem statement.\nCopy the Hex Color Code of the color you choose\ninclude the "#" symbol.\nTo reset, enter "default"\n\nThis will only apply on dark mode';
+    btInfoColor.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
+
+
+
+    var btSave = document.createElement("button");
+    btSave.className = "bp3-button bp3-intent-primary search-box-button";
+    btSave.innerHTML = "Save";
+    btSave.style.display = "block";
+    btSave.style.marginLeft = "0";
+    btSave.addEventListener("click", savePref, false);
+
+    var toggleDarkDiv = document.createElement("div");
+
+    var toggleDarkTitle = document.createElement("p");
+    toggleDarkTitle.innerHTML = "Enable Dark Mode: "
+    toggleDarkTitle.style.display = "inline-block";
+    toggleDarkTitle.style.marginRight = "20px";
+
+    var toggleDark = document.createElement("input");
+    toggleDark.id = "toggleDark";
+    toggleDark.type = "checkbox";
+    toggleDark.style.width = "20px";
+    toggleDark.style.display = "inline-block";
+    toggleDark.style.verticalAlign = "middle";
+    if(await GM.getValue("dark") == 10)toggleDark.checked = true;
+
+    var toggleBetaDiv = document.createElement("div");
+
+    var toggleBetaTitle = document.createElement("p");
+    toggleBetaTitle.innerHTML = "Enable Beta Mode: "
+    toggleBetaTitle.style.display = "inline-block";
+    toggleBetaTitle.style.marginRight = "20px";
+
+    var toggleBeta = document.createElement("input");
+    toggleBeta.id = "toggleBeta";
+    toggleBeta.type = "checkbox";
+    toggleBeta.style.width = "20px";
+    toggleBeta.style.display = "inline-block";
+    toggleBeta.style.verticalAlign = "middle";
+    if(await GM.getValue("beta") == 10)toggleBeta.checked = true;
+
+    var toggleUserDiv = document.createElement("div");
+
+    var toggleUserTitle = document.createElement("p");
+    toggleUserTitle.innerHTML = "Enable User Search Tab: "
+    toggleUserTitle.style.display = "inline-block";
+    toggleUserTitle.style.marginRight = "20px";
+
+    var toggleUser = document.createElement("input");
+    toggleUser.id = "toggleUser";
+    toggleUser.type = "checkbox";
+    toggleUser.style.width = "20px";
+    toggleUser.style.display = "inline-block";
+    toggleUser.style.verticalAlign = "middle";
+    if(await GM.getValue("user") == 10)toggleUser.checked = true;
+
+    var toggleCopyDiv = document.createElement("div");
+
+    var toggleCopyTitle = document.createElement("p");
+    toggleCopyTitle.innerHTML = "Enable Copy Buttons on sample: "
+    toggleCopyTitle.style.display = "inline-block";
+    toggleCopyTitle.style.marginRight = "20px";
+
+    var toggleCopy = document.createElement("input");
+    toggleCopy.id = "toggleCopy";
+    toggleCopy.type = "checkbox";
+    toggleCopy.style.width = "20px";
+    toggleCopy.style.display = "inline-block";
+    toggleCopy.style.verticalAlign = "middle";
+    if(await GM.getValue("copy") == 10)toggleCopy.checked = true;
+
+    toggleCopyDiv.appendChild(toggleCopyTitle);
+    toggleCopyDiv.appendChild(toggleCopy);
+    toggleUserDiv.appendChild(toggleUserTitle);
+    toggleUserDiv.appendChild(toggleUser);
+    toggleBetaDiv.appendChild(toggleBetaTitle);
+    toggleBetaDiv.appendChild(toggleBeta);
+    toggleDarkDiv.appendChild(toggleDarkTitle);
+    toggleDarkDiv.appendChild(toggleDark);
+    textColor.appendChild(input);
+    textColor.appendChild(btInfoColor);
+    contents.appendChild(textColor);
+    contents.appendChild(toggleDarkDiv);
+    contents.appendChild(toggleBetaDiv);
+    contents.appendChild(toggleUserDiv);
+    contents.appendChild(toggleCopyDiv);
+    contents.appendChild(btSave);
+  }
+
   function retractUserTab(node){
     node = node.target
-    console.log(node.href);
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
     document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
+  }
+
+  function retractPrefTab(node){
+    node = node.target
+    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-expanded", "false");
+    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-selected", "false");
     if(location.href.indexOf(node.href) != -1){
       location.replace(node.href);
-      // location.reload();
     }
   }
 
   async function searchUser(){
     if(await GM.getValue("beta") == -10)return;
+    if(await GM.getValue("user") == -10)return;
     if(document.getElementById("bp3-tab-title_menubar_user") != null){
       return;
     }
@@ -435,9 +605,33 @@
     tablist.appendChild(newTab);
   }
 
+  async function prefTab(){
+    if(await GM.getValue("beta") == -10)return;
+    if(document.getElementById("bp3-tab-title_menubar_preferences") != null){
+      return;
+    }
+    var tabs = document.getElementsByClassName("bp3-tab");
+    for(var i = 0; i < tabs.length; ++i){
+      tabs[i].addEventListener("click", retractPrefTab, false);
+    }
+    var tablist = document.getElementsByClassName("bp3-tab-list")[0];
+    var newTab = document.createElement("div");
+    newTab.ariaDisabled = "false";
+    newTab.ariaExpanded = "false";
+    newTab.id = "bp3-tab-title_menubar_preferences";
+    newTab.className = "bp3-tab";
+    newTab.setAttribute("role", "tab");
+    newTab.setAttribute("tabindex", "0");
+    newTab.setAttribute("aria-controls", "bp3-tab-panel_menubar_ranking");
+    newTab.innerHTML = "<a> Preferences </a>";
+    newTab.addEventListener("click", onPrefTab, false);
+    tablist.appendChild(newTab);
+  }
+
   window.addEventListener ("load", async function() {
     await beta();
-    searchUser();
+    await searchUser();
+    await prefTab();
     credit();
     pref();
 
@@ -905,29 +1099,34 @@
     btView.addEventListener("click", viewAllProblem, false);
   }
 
+  async function copyButton(){
+    if(await GM.getValue("copy") != 10)return;
+    var arr = document.getElementsByTagName("PRE");
+    for(var i = 0; i < arr.length; i++){
+      if(arr[i].getElementsByTagName("DIV").length != 0)continue;
+      var zNode = document.createElement ('div');
+      zNode.innerHTML = '<button id="btCopy' + i + '" type="button" class="btCopy">'
+                      + 'Copy</button>'
+                      ;
+      zNode.setAttribute ('id', 'btCopyContainer');
+      arr[i].prepend (zNode);
+      function copy(zEvent){
+        var res = zEvent.path[2].innerText;
+        res = res.substr(5);
+        navigator.clipboard.writeText(res);
+      }
+      document.getElementById("btCopy" + i).addEventListener (
+          "click", copy, false
+      );
+    }
+  }
+
   function gmMain () {
     console.log('new page');
     window.setTimeout(() => {
       problemPage();
       sc();
-      var arr = document.getElementsByTagName("PRE");
-      for(var i = 0; i < arr.length; i++){
-        if(arr[i].getElementsByTagName("DIV").length != 0)continue;
-        var zNode = document.createElement ('div');
-        zNode.innerHTML = '<button id="btCopy' + i + '" type="button" class="btCopy">'
-                        + 'Copy</button>'
-                        ;
-        zNode.setAttribute ('id', 'btCopyContainer');
-        arr[i].prepend (zNode);
-        function copy(zEvent){
-          var res = zEvent.path[2].innerText;
-          res = res.substr(5);
-          navigator.clipboard.writeText(res);
-        }
-        document.getElementById("btCopy" + i).addEventListener (
-            "click", copy, false
-        );
-      }
+      copyButton();
     }, 3000);
   };
 
