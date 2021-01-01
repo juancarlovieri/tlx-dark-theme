@@ -36,7 +36,7 @@ Any feedbacks are welcome :D
 
 **Update 31/12/20**:<br>- Added "User Search" feature where you can search for people in TLX by their username. However, this feature is still in beta mode.
 
-**Update 01/01/21**:<br>- Added "Settings" tab instead of clutters on top right screen
+**Update 01/01/21**:<br>- Added "Settings" tab instead of clutters on top right screen. However, this feature is still in beta mode.
 
 
 Error Codes:
