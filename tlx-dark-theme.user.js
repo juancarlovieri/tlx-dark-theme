@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.8
+// @version      2.7.9
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -477,6 +477,7 @@
     input.className = "bp3-input";
     input.id = "textColor";
     input.style.width = "auto";
+    input.style.marginRight = "10px";
     input.style.display = "inline-block";
     input.value = await GM.getValue("color");
     var btInfoColor = document.createElement("div");
