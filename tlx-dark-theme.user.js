@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.6
+// @version      2.7.7
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -494,12 +494,15 @@
     btSave.style.marginLeft = "0";
     btSave.addEventListener("click", savePref, false);
 
+    var indentWidth = "250px";
+
     var toggleDarkDiv = document.createElement("div");
 
     var toggleDarkTitle = document.createElement("p");
     toggleDarkTitle.innerHTML = "Enable Dark Mode: "
     toggleDarkTitle.style.display = "inline-block";
     toggleDarkTitle.style.marginRight = "20px";
+    toggleDarkTitle.style.width = indentWidth;
 
     var toggleDark = document.createElement("input");
     toggleDark.id = "toggleDark";
@@ -515,6 +518,7 @@
     toggleBetaTitle.innerHTML = "Enable Beta Mode: "
     toggleBetaTitle.style.display = "inline-block";
     toggleBetaTitle.style.marginRight = "20px";
+    toggleBetaTitle.style.width = indentWidth;
 
     var toggleBeta = document.createElement("input");
     toggleBeta.id = "toggleBeta";
@@ -530,6 +534,7 @@
     toggleUserTitle.innerHTML = "Enable User Search Tab: "
     toggleUserTitle.style.display = "inline-block";
     toggleUserTitle.style.marginRight = "20px";
+    toggleUserTitle.style.width = indentWidth;
 
     var toggleUser = document.createElement("input");
     toggleUser.id = "toggleUser";
@@ -545,6 +550,7 @@
     toggleCopyTitle.innerHTML = "Enable Copy Buttons on sample: "
     toggleCopyTitle.style.display = "inline-block";
     toggleCopyTitle.style.marginRight = "20px";
+    toggleCopyTitle.style.width = indentWidth;
 
     var toggleCopy = document.createElement("input");
     toggleCopy.id = "toggleCopy";
@@ -560,6 +566,7 @@
     toggleViewProblemsTitle.innerHTML = 'Enable "View All Problems" button: '
     toggleViewProblemsTitle.style.display = "inline-block";
     toggleViewProblemsTitle.style.marginRight = "20px";
+    toggleViewProblemsTitle.style.width = indentWidth;
 
     var toggleViewProblems = document.createElement("input");
     toggleViewProblems.id = "toggleViewProblems";
