@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.9
+// @version      2.8.0
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -486,7 +486,9 @@
     btInfoColor.style.cursor = "pointer";
     btInfoColor.title = 'Font color for problem statement.\nCopy the Hex Color Code of the color you choose\ninclude the "#" symbol.\nTo reset, enter "default"\n\nThis will only apply on dark mode';
     btInfoColor.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
-
+    btInfoColor.addEventListener("click", () =>{
+      alert('Font color for problem statement.\nCopy the Hex Color Code of the color you choose\ninclude the "#" symbol.\nTo reset, enter "default"\n\nThis will only apply on dark mode');
+    }, true);
 
     var btSave = document.createElement("button");
     btSave.className = "bp3-button bp3-intent-primary search-box-button";
