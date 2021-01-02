@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.3
+// @version      2.7.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -22,6 +22,7 @@
     if(await GM.getValue("user") == null)await GM.setValue("user", "10");
     if(await GM.getValue("beta") == null)await GM.setValue("beta", "-10");
     if(await GM.getValue("copy") == null)await GM.setValue("copy", "10");
+    if(await GM.getValue("viewProblems") == null)await GM.setValue("viewProblems", "10");
   }
 
   init();
@@ -444,6 +445,10 @@
     var toggleCopy = document.getElementById("toggleCopy");
     if(toggleCopy.checked)await GM.setValue("copy", 10);
     else await GM.setValue("copy", -10);
+    
+    var toggleViewProblems = document.getElementById("toggleViewProblems");
+    if(toggleViewProblems.checked)await GM.setValue("viewProblems", 10);
+    else await GM.setValue("viewProblems", -10);
 
 
     alert('success!');
@@ -548,6 +553,23 @@
     toggleCopy.style.verticalAlign = "middle";
     if(await GM.getValue("copy") == 10)toggleCopy.checked = true;
 
+    var toggleViewProblemsDiv = document.createElement("div");
+
+    var toggleViewProblemsTitle = document.createElement("p");
+    toggleViewProblemsTitle.innerHTML = 'Enable "View All Problems" button: '
+    toggleViewProblemsTitle.style.display = "inline-block";
+    toggleViewProblemsTitle.style.marginRight = "20px";
+
+    var toggleViewProblems = document.createElement("input");
+    toggleViewProblems.id = "toggleViewProblems";
+    toggleViewProblems.type = "checkbox";
+    toggleViewProblems.style.width = "20px";
+    toggleViewProblems.style.display = "inline-block";
+    toggleViewProblems.style.verticalAlign = "middle";
+    if(await GM.getValue("viewProblems") == 10)toggleViewProblems.checked = true;
+
+    toggleViewProblemsDiv.appendChild(toggleViewProblemsTitle);
+    toggleViewProblemsDiv.appendChild(toggleViewProblems);
     toggleCopyDiv.appendChild(toggleCopyTitle);
     toggleCopyDiv.appendChild(toggleCopy);
     toggleUserDiv.appendChild(toggleUserTitle);
@@ -563,6 +585,7 @@
     contents.appendChild(toggleBetaDiv);
     contents.appendChild(toggleUserDiv);
     contents.appendChild(toggleCopyDiv);
+    contents.appendChild(toggleViewProblemsDiv);
     contents.appendChild(btSave);
   }
 
@@ -1083,6 +1106,7 @@
 
   async function problemPage(){
     if(await GM.getValue("beta") == -10)return;
+    if(await GM.getValue("viewProblems") == -10)return;
     var problems = [];
     var allDivs = document.getElementsByTagName("DIV");
     for(var i = 0; i < allDivs.length; ++i){
