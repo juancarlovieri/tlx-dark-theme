@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.7.7
+// @version      2.7.8
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -456,6 +456,8 @@
   }
 
   async function onPrefTab(){
+    var indentWidth = "250px";
+
     document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-expanded", "true");
     document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-selected", "true");
     var tabs = document.getElementsByClassName("bp3-tab");
@@ -469,11 +471,10 @@
     var textColor = document.createElement("div");
     textColor.setAttribute("class", "bp3-form-content");
     textColor.style.display = "inline-block";
-    textColor.innerHTML = '<p style="width:auto;display:inline-block;">Text Color: </p>'
+    textColor.innerHTML = '<p style="width:' + indentWidth + ';margin-right:20px;display:inline-block;">Text Color: </p>'
     var input = document.createElement("input");
     input.type = "text";
     input.className = "bp3-input";
-    input.style.margin = "10px";
     input.id = "textColor";
     input.style.width = "auto";
     input.style.display = "inline-block";
@@ -486,7 +487,6 @@
     btInfoColor.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
 
 
-
     var btSave = document.createElement("button");
     btSave.className = "bp3-button bp3-intent-primary search-box-button";
     btSave.innerHTML = "Save";
@@ -494,10 +494,8 @@
     btSave.style.marginLeft = "0";
     btSave.addEventListener("click", savePref, false);
 
-    var indentWidth = "250px";
 
     var toggleDarkDiv = document.createElement("div");
-
     var toggleDarkTitle = document.createElement("p");
     toggleDarkTitle.innerHTML = "Enable Dark Mode: "
     toggleDarkTitle.style.display = "inline-block";
