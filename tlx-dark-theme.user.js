@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.8.1
+// @version      2.8.2
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -615,7 +615,7 @@
   }
 
   async function searchUser(){
-    if(await GM.getValue("beta") == -10)return;
+    // if(await GM.getValue("beta") == -10)return;
     if(await GM.getValue("user") == -10)return;
     if(document.getElementById("bp3-tab-title_menubar_user") != null){
       return;
@@ -639,7 +639,7 @@
   }
 
   async function prefTab(){
-    if(await GM.getValue("beta") == -10)return;
+    // if(await GM.getValue("beta") == -10)return;
     if(document.getElementById("bp3-tab-title_menubar_preferences") != null){
       return;
     }
@@ -1115,7 +1115,7 @@
   }
 
   async function problemPage(){
-    if(await GM.getValue("beta") == -10)return;
+    // if(await GM.getValue("beta") == -10)return;
     if(await GM.getValue("viewProblems") == -10)return;
     var problems = [];
     var allDivs = document.getElementsByTagName("DIV");
