@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.8.2
+// @version      2.8.3
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -662,39 +662,39 @@
   }
 
   window.addEventListener ("load", async function() {
-    await beta();
+    // await beta();
     await searchUser();
     await prefTab();
     credit();
-    pref();
+    // pref();
 
-    var zNode = document.createElement ('div');
-    zNode.innerHTML = '<button id="btDark" type="button" class="btDark> <img src="https"//foo.com alt="dark"/>'
-                    + 'switch</button>'
-                    ;
-    zNode.setAttribute ('id', 'btDarkContainer');
-    var arr = document.getElementsByClassName("bp3-navbar header");
-    if(arr.length != 1){
-      return;
-    }
-    var head = arr[0];
-    head.prepend(zNode);
-    async function toggle(zEvent){
-      if(await GM.getValue("dark") == 10){
-        await GM.setValue("dark", -10);
-        applyLight();
-        btLight();
-      } else {
-        await GM.setValue("dark", 10);
-        applyDark();
-        btDark();
-      }
-    }
-    document.getElementById("btDark").addEventListener (
-        "click", toggle, false
-    );
-    btDark();
-    btLight();
+    // var zNode = document.createElement ('div');
+    // zNode.innerHTML = '<button id="btDark" type="button" class="btDark> <img src="https"//foo.com alt="dark"/>'
+    //                 + 'switch</button>'
+    //                 ;
+    // zNode.setAttribute ('id', 'btDarkContainer');
+    // var arr = document.getElementsByClassName("bp3-navbar header");
+    // if(arr.length != 1){
+    //   return;
+    // }
+    // var head = arr[0];
+    // head.prepend(zNode);
+    // async function toggle(zEvent){
+    //   if(await GM.getValue("dark") == 10){
+    //     await GM.setValue("dark", -10);
+    //     applyLight();
+    //     btLight();
+    //   } else {
+    //     await GM.setValue("dark", 10);
+    //     applyDark();
+    //     btDark();
+    //   }
+    // }
+    // document.getElementById("btDark").addEventListener (
+    //     "click", toggle, false
+    // );
+    // btDark();
+    // btLight();
   }, false);
 
   function sigmoid(t) {
