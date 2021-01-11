@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.8.4
+// @version      2.8.5
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -79,7 +79,7 @@
     elem.id = 'tlx-dark-theme';
     elem.type = 'text/css';
     elem.innerText = style;
-    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#e3e3e3;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#282828;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:transparent !important;color:#707070 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}.diff{background-color:#303030 !important}`;
+    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#e3e3e3;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#282828;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:transparent !important;color:#909090 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;color:#808080;height:0px}.diff{background-color:#303030 !important}`;
     var elem2 = document.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
@@ -95,14 +95,15 @@
     if(cur != null)await document.head.removeChild(cur);
   }
 
+  var styleLight = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#404040;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#606060 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
+
   async function applyLight(){
     if(await GM.getValue("dark") == 10)return;
     await rmDark();
-    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#404040;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
     var elem2 = document.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
-    elem2.innerText = style2;
+    elem2.innerText = styleLight;
     apply(elem2);
   }
 
@@ -1079,11 +1080,10 @@
       doc.head.appendChild((allStyle[i].cloneNode()));
     }
 
-    var style2 = `button#btPref{background:transparent;boc-shadow:none;border:none;color:#404040;cursor:pointer}button#btPref:focus{outline:0}#btPrefContainer{margin-top:12.5px;margin-bottom:12.5px;margin-right:15px;float:right;width:auto;height:auto;}#btCopyContainer{margin-top:-9px;margin-right:-9px;float:right;background-color:#303030;border-radius:2.5px}button#btDark:focus, button#btBeta:focus{outline:0}button#btDark, button#btBeta{cursor:pointer;color:#e3e3e3;float:right;margin-top:10px;height:20px;margin-right:10px;margin-left:10px;background:transparent !important;border:none}div#btDarkContainer, div#btBetaContainer{height:auto;width:auto;margin:auto;float:right;margin-right:10px;margin-left:10px;margin-top:5px}button.btCopy{cursor:pointer;background-color:#e0e0e0 !important;color:#858585 !important;border:none;text-align:left !important;font-size:8pt;padding:4px}button.btCopy:focus{outline:0}#darkThemeCredit{text-align:center;height:0px}`;
     var elem2 = doc.createElement('style');
     elem2.id = 'tlx-dark-theme-additional';
     elem2.type = 'text/css';
-    elem2.innerText = style2;
+    elem2.innerText = styleLight;
     doc.head.appendChild(elem2);
 
     var newWindow = window.open();
