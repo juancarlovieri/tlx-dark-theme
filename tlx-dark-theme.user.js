@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.8.5
+// @version      2.8.6
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -43,6 +43,21 @@
     , 1000
   );
 
+  function fadeOutToast(toast){
+    var fadeTarget = toast;
+    var fadeEffect = setInterval(function () {
+      if (!fadeTarget.style.opacity) {
+        fadeTarget.style.opacity = 1;
+      }
+      if (fadeTarget.style.opacity > 0) {
+        fadeTarget.style.opacity -= 0.01;
+      } else {
+        clearInterval(fadeEffect);
+        document.body.removeChild(toast);
+      }
+    }, 1);
+  }
+
   async function toast(str){
     if(await GM.getValue("beta") != 10 && str == "Copied!"){
       return;
@@ -53,11 +68,41 @@
     }
     var toast = document.createElement("div");
     toast.className = "bp3-overlay bp3-overlay-inline bp3-toast-container bp3-toast-container-top toast";
-    toast.innerHTML = '<div class="bp3-toast bp3-intent-success bp3-overlay-content bp3-toast-enter-done" tabindex="0"><span icon="tick" class="bp3-icon bp3-icon-tick"><svg data-icon="tick" width="16" height="16" viewBox="0 0 16 16"><desc>tick</desc><path d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z" fill-rule="evenodd"></path></svg></span><span class="bp3-toast-message">' + str + '</span><div class="bp3-button-group bp3-minimal"><button type="button" class="bp3-button"><span icon="cross" class="bp3-icon bp3-icon-cross"><svg data-icon="cross" width="16" height="16" viewBox="0 0 16 16"><desc>cross</desc><path d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z" fill-rule="evenodd"></path></svg></span></button></div></div>';
+    toast.innerHTML = '<div class="bp3-toast bp3-intent-success bp3-overlay-content bp3-toast-enter-done" tabindex="0"><span icon="tick" class="bp3-icon bp3-icon-tick"><svg data-icon="tick" width="16" height="16" viewBox="0 0 16 16"><desc>tick</desc><path d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z" fill-rule="evenodd"></path></svg></span><span class="bp3-toast-message">' + str + '</span><div class="bp3-button-group bp3-minimal"><button type="button" class="bp3-button close-toast"><span icon="cross" class="bp3-icon bp3-icon-cross"><svg data-icon="cross" width="16" height="16" viewBox="0 0 16 16"><desc>cross</desc><path d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z" fill-rule="evenodd"></path></svg></span></button></div></div>';
     document.body.appendChild(toast);
+    
+    var btClose = document.getElementsByClassName("bp3-button close-toast")[0];
+    btClose.addEventListener("click", function(){
+      fadeOutToast(this.parentNode.parentNode.parentNode);
+      // document.body.removeChild(this.parentNode.parentNode.parentNode);
+    });
+
+    var minheight = 20;
+    var maxheight = 100;
+    var time = 100;
+    var timer = null;
+    var slider = document.getElementsByClassName("bp3-toast bp3-intent-success bp3-overlay-content bp3-toast-enter-done")[0];
+    // clearInterval(timer);
+    var instanceheight = -10;
+    slider.style.marginTop = instanceheight + 'px';
+    var init = (new Date()).getTime();
+    var height = 12;
+
+    var disp = height - instanceheight;
+    timer = setInterval(function() {
+      var instance = (new Date()).getTime() - init;
+      if(instance <= time ) {
+        var pos = instanceheight + Math.floor(disp * instance / time);
+        slider.style.marginTop =  pos + 'px';
+      }else {
+        slider.style.marginTop = height + 'px';
+        clearInterval(timer);
+      }
+    },1);
+
     setTimeout(function(){
-      document.body.removeChild(toast);
-    }, 3000);
+      fadeOutToast(toast);
+    }, 2000);
   }
 
   async function apply(elem){
