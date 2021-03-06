@@ -40,6 +40,8 @@ Any feedbacks are welcome :D
 
 **Update 06/01/21**:<br>- All beta features are moved to stable release. This include: User search tab, Settings tab and Viewing all problems in one page.
 
+**Update 06/03/21**:<br>- Added automatic switching between dark and light mode. This feature is accessible in the settings tab. However, this feature is still in beta mode.
+
 
 Error Codes:
 - Code 1: You need to include the '#' character at the beginning of the Hex Color Code
