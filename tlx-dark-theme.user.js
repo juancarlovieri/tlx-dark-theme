@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.9.0
+// @version      2.9.1
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -17,12 +17,15 @@
   'use strict';
 
   async function init() {
+    if (await GM.getValue("auto") == null) await GM.setValue("auto", -10);
+    if (await GM.getValue("on") == null) await GM.setValue("on", 64800);
+    if (await GM.getValue("off") == null) await GM.setValue("off", 21600);
     if (await GM.getValue("color") == null) await GM.setValue("color", "#e3e3e3");
-    if (await GM.getValue("dark") == null) await GM.setValue("dark", "10");
-    if (await GM.getValue("user") == null) await GM.setValue("user", "10");
-    if (await GM.getValue("beta") == null) await GM.setValue("beta", "-10");
-    if (await GM.getValue("copy") == null) await GM.setValue("copy", "10");
-    if (await GM.getValue("viewProblems") == null) await GM.setValue("viewProblems", "10");
+    if (await GM.getValue("dark") == null) await GM.setValue("dark", 10);
+    if (await GM.getValue("user") == null) await GM.setValue("user", 10);
+    if (await GM.getValue("beta") == null) await GM.setValue("beta", -10);
+    if (await GM.getValue("copy") == null) await GM.setValue("copy", 10);
+    if (await GM.getValue("viewProblems") == null) await GM.setValue("viewProblems", 10);
   }
 
   init();
@@ -118,7 +121,7 @@
   async function applyDark() {
     if (await GM.getValue("dark") == -10) return;
     await rmLight();
-    var style = `body{background:#252525 !important;color:#FFFFFF !important;}.bp3-card{background:#202020 !important;color:#FFFFFF !important;}.bp3-running-text table th, table.bp3-html-table th{border-color:#606060 !important;color:#e3e3e3 !important;}.single-problemset-problem-routes__title{color:#FFFFFF !important}td{border: 1px solid !important;border-color:#606060 !important;color:#e3e3e3 !important;}.programming-problem-statement__name{color:#FFFFFF !important;}.html-text pre{background-color:#151515 !important;}code{background-color:transparent !important;color:#e3e3e3 !important}pre code{background-color:transparent !important;}.content-card h3{color:#e3e3e3 !important;}.card-sidebar .bp3-tab[aria-selected=true]{background-color:#303030 !important;color:#3b73b9 !important}h1, h2, h3, h4, h5{color:#e3e3e3 !important}.rating-purple{color:#ce8aff!important; background-color:transparent !important}.rating-red{color:#ff4747 !important; background-color:transparent !important}.rating-unrated{color:#e3e3e3 !important; background-color:transparent !important}.rating-gray{color:#8c8c8c !important; background-color:transparent !important}.rating-blue{color:#757dff !important; background-color:transparent !important}.rating-green{color:#00c700 !important; background-color:transparent !important}a{background-color:transparent !important;color:#1E90FF}.content-card-link{border: 1px solid !important; border-color: #404040 !important}.content-card-link:hover{background-color:#151515 !important}.archive-filter__category{color:#FFFFFF !important}.archive-filter__option--inactive{color:#C0C0C0 !important}table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(odd) td{background:#272727}.card-sidebar .bp3-tab a{color:#1E90FF}.menubar{background-color:#353535 !important;overflow-y:hidden;}.menubar__content .bp3-tab[aria-selected=true]{background-color:#303030 !important;color:#1E90FF}.menubar__content .bp3-tab{color:#1E90FF}.form-table-input__label{color:#FFFFFF}small{color:#e3e3e3}.card__title{border-bottom:1px solid;border-color:#404040}hr{border-color:#404040 !important}.bp3-breadcrumb, .bp3-breadcrumbs-collapsed{color:#909090 !important}.bp3-breadcrumb-current{color:#C0C0C0 !important}.bp3-button-group .bp3-button.bp3-active, .bp3-button-group .bp3-button:active{background:#505050 !important}.bp3-button-group .bp3-button{background:#404040 !important}.bp3-input{background:#303030;color:#C0C0C0}.bp3-button-group .bp3-button.bp3-fill, .bp3-button-group.bp3-fill .bp3-button:not(.bp3-fixed){color:#FFFFFF}.bp3-menu-item>.bp3-fill{color:#000000}.rating-red{color:#ff4747 !important; background-color:transparent !important}.bp3-file-upload-input{background-color:#303030 !important;color:#A0A0A0 !important}.header{background-color:#232323!important}.programming-submission-details pre{background-color:#202020 !important}span.token{background-color:transparent !important}.secondary-info{color:#e3e3e3 !important}.widget-user__profile, .widget-user__profile svg{background-color:#404040;fill:#C0C0C0 !important}.form-table-input td{border:none !important}.html-text th{color:#e3e3e3 !important;background-color:#181818 !important}.menubar{overflow-x:hidden !important; box-shadow:none}table.gcj-scoreboard__content td strong.total-points-cell{color:#e3e3e3 !important}table.gcj-scoreboard__content td strong{color:black}table.gcj-scoreboard__content td strong{color:white}table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(odd) td.accepted, table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(even) td.accepted{background-color:#339933 !important;}td.accepted strong{color:black !important}table.gcj-scoreboard__content td.not-accepted small, table.gcj-scoreboard__content td.not-accepted strong{color:#e3e3e3 !important}table.gcj-scoreboard__content td.accepted small{color:#353535 !important}.gcj-scoreboard__content td small{color:#b0b0b0 !important}.bp3-button.bp3-intent-warning{background-color: #d9822b !important}.bp3-button.bp3-small, .bp3-small .bp3-button{background:transparent;border:none;color:#e3e3e3}.bp3-file-upload-input:after{background:#696969;color:#b5b5b5}.bp3-file-upload-input:hover{background:#505050 !important}.bp3-file-upload-input:hover:after{background:#696969 !important}.bp3-button.bp3-small:hover{background:#404040 !important}img:not([class]){background:white}.bp3-tabs.bp3-vertical>.bp3-tab-list .bp3-tab-indicator-wrapper .bp3-tab-indicator{background-color:#303030 !important}.html-text .spoiler{background-color:#151515 !important}.contest-registrants-dialog__body{background-color:#303030}.bp3-dialog{background-color:#202020}.bp3-dialog-header{background:#202020}.bp3-tabs.bp3-vertical{background-color:#202020 !important}.bp3-navbar-divider{background-color:#e3e3e3}table.scoreboard__content .my-rank, table.scoreboard__content .my-rank td{background-color:#404040 !important}.bp3-callout.bp3-intent-warning{background-color:#B36822 !important}p{color:` + await GM.getValue('color') + `!important}ol li, ul li{color:` + await GM.getValue('color') + `}span:not([class]){color: ` + await GM.getValue('color') + `!important}font{color:` + await GM.getValue('color') + `!important}`;
+    var style = `body{background:#252525 !important;color:#FFFFFF !important;}.bp3-card{background:#202020 !important;color:#FFFFFF !important;}.bp3-running-text table th, table.bp3-html-table th{border-color:#606060 !important;color:#e3e3e3 !important;}.single-problemset-problem-routes__title{color:#FFFFFF !important}td{border: 1px solid !important;border-color:#606060 !important;color:#e3e3e3 !important;}.programming-problem-statement__name{color:#FFFFFF !important;}.html-text pre{background-color:#151515 !important;}code{background-color:transparent !important;color:#e3e3e3 !important}pre code{background-color:transparent !important;}.content-card h3{color:#e3e3e3 !important;}.card-sidebar .bp3-tab[aria-selected=true]{background-color:#303030 !important;color:#3b73b9 !important}h1, h2, h3, h4, h5{color:#e3e3e3 !important}.rating-purple{color:#ce8aff!important; background-color:transparent !important}.rating-red{color:#ff4747 !important; background-color:transparent !important}.rating-unrated{color:#e3e3e3 !important; background-color:transparent !important}.rating-gray{color:#8c8c8c !important; background-color:transparent !important}.rating-blue{color:#757dff !important; background-color:transparent !important}.rating-green{color:#00c700 !important; background-color:transparent !important}a{background-color:transparent !important;color:#1E90FF}.content-card-link{border: 1px solid !important; border-color: #404040 !important}.content-card-link:hover{background-color:#151515 !important}.archive-filter__category{color:#FFFFFF !important}.archive-filter__option--inactive{color:#C0C0C0 !important}table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(odd) td{background:#272727}.card-sidebar .bp3-tab a{color:#1E90FF}.menubar{background-color:#353535 !important;overflow-y:hidden;}.menubar__content .bp3-tab[aria-selected=true]{background-color:#303030 !important;color:#1E90FF}.menubar__content .bp3-tab{color:#1E90FF}.form-table-input__label{color:#FFFFFF}small{color:#e3e3e3}.card__title{border-bottom:1px solid;border-color:#404040}hr{border-color:#404040 !important}.bp3-breadcrumb, .bp3-breadcrumbs-collapsed{color:#909090 !important}.bp3-breadcrumb-current{color:#C0C0C0 !important}.bp3-button-group .bp3-button.bp3-active, .bp3-button-group .bp3-button:active{background:#505050 !important}.bp3-button-group .bp3-button{background:#404040 !important}.bp3-input{background:#303030;color:#C0C0C0}.bp3-button-group .bp3-button.bp3-fill, .bp3-button-group.bp3-fill .bp3-button:not(.bp3-fixed){color:#FFFFFF}.bp3-menu-item>.bp3-fill{color:#000000}.rating-red{color:#ff4747 !important; background-color:transparent !important}.bp3-file-upload-input{background-color:#303030 !important;color:#A0A0A0 !important}.header{background-color:#232323!important}.programming-submission-details pre{background-color:#202020 !important}span.token{background-color:transparent !important}.secondary-info{color:#e3e3e3 !important}.widget-user__profile, .widget-user__profile svg{background-color:#404040;fill:#C0C0C0 !important}.form-table-input td{border:none !important}.html-text th{color:#e3e3e3 !important;background-color:#181818 !important}.menubar{overflow-x:hidden !important; box-shadow:none}table.gcj-scoreboard__content td strong.total-points-cell{color:#e3e3e3 !important}table.gcj-scoreboard__content td strong{color:black}table.gcj-scoreboard__content td strong{color:white}table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(odd) td.accepted, table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(even) td.accepted{background-color:#339933 !important;}td.accepted strong{color:black !important}table.gcj-scoreboard__content td.not-accepted small, table.gcj-scoreboard__content td.not-accepted strong{color:#e3e3e3 !important}table.gcj-scoreboard__content td.accepted small{color:#353535 !important}.gcj-scoreboard__content td small{color:#b0b0b0 !important}.bp3-button.bp3-intent-warning{background-color: #d9822b !important}.bp3-button.bp3-small, .bp3-small .bp3-button{background:transparent;border:none;color:#e3e3e3}.bp3-file-upload-input:after{background:#696969;color:#b5b5b5}.bp3-file-upload-input:hover{background:#505050 !important}.bp3-file-upload-input:hover:after{background:#696969 !important}.bp3-button.bp3-small:hover{background:#404040 !important}img:not([class]){background:white}.bp3-tabs.bp3-vertical>.bp3-tab-list .bp3-tab-indicator-wrapper .bp3-tab-indicator{background-color:#303030 !important}.html-text .spoiler{background-color:#151515 !important}.contest-registrants-dialog__body{background-color:#303030}.bp3-dialog{background-color:#202020}.bp3-dialog-header{background:#202020}.bp3-tabs.bp3-vertical{background-color:#202020 !important}.bp3-navbar-divider{background-color:#e3e3e3}table.scoreboard__content .my-rank, table.scoreboard__content .my-rank td{background-color:#404040 !important}.bp3-callout.bp3-intent-warning{background-color:#B36822 !important}p{color:` + await GM.getValue('color') + `!important}ol li, ul li{color:` + await GM.getValue('color') + `}span:not([class]){color: ` + await GM.getValue('color') + `!important}font{color:` + await GM.getValue('color') + `!important}`;    
     var elem = document.createElement('style');
     elem.id = 'tlx-dark-theme';
     elem.type = 'text/css';
@@ -511,13 +514,32 @@
     if (toggleViewProblems.checked) await GM.setValue("viewProblems", 10);
     else await GM.setValue("viewProblems", -10);
 
+    var toggleAuto = document.getElementById("toggleAuto");
+    if (toggleAuto.checked) await GM.setValue("auto", 10);
+    else await GM.setValue("auto", -10);
+
+    var onTime = document.getElementById("textOn").value;
+    var time = 0;
+    var hour = onTime.substr(0, 2);
+    time += parseInt(hour) * 3600;
+    var minute = onTime.substr(3, 2);
+    time += parseInt(minute) * 60;
+    await GM.setValue("on", time);
+
+    var offTime = document.getElementById("textOff").value;
+    var time = 0;
+    var hour = offTime.substr(0, 2);
+    time += parseInt(hour) * 3600;
+    var minute = offTime.substr(3, 2);
+    time += parseInt(minute) * 60;
+    await GM.setValue("off", time);
 
     toast('success!');
     location.reload();
   }
 
   async function onPrefTab() {
-    var indentWidth = "250px";
+    var indentWidth = "330px";
 
     document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-expanded", "true");
     document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-selected", "true");
@@ -573,6 +595,7 @@
     toggleDark.style.display = "inline-block";
     toggleDark.style.verticalAlign = "middle";
     if (await GM.getValue("dark") == 10) toggleDark.checked = true;
+    if (await GM.getValue("auto") == 10) toggleDark.disabled = true;
 
     var toggleBetaDiv = document.createElement("div");
 
@@ -638,6 +661,95 @@
     toggleViewProblems.style.verticalAlign = "middle";
     if (await GM.getValue("viewProblems") == 10) toggleViewProblems.checked = true;
 
+    var toggleAutoDiv = document.createElement("div");
+
+    var toggleAutoTitle = document.createElement("p");
+    toggleAutoTitle.innerHTML = 'Enable automatic dark/light mode switching(beta): '
+    toggleAutoTitle.style.display = "inline-block";
+    toggleAutoTitle.style.marginRight = "20px";
+    toggleAutoTitle.style.width = indentWidth;
+
+    var toggleAuto = document.createElement("input");
+    toggleAuto.id = "toggleAuto";
+    toggleAuto.type = "checkbox";
+    toggleAuto.style.width = "20px";
+    toggleAuto.style.display = "inline-block";
+    toggleAuto.style.verticalAlign = "middle";
+    if (await GM.getValue("beta") != 10)toggleAuto.disabled = true;
+    if (await GM.getValue("auto") == 10) toggleAuto.checked = true;
+
+    var textOn = document.createElement("div");
+    textOn.setAttribute("class", "bp3-form-content");
+    // textOn.style.display = "inline-block";
+    textOn.innerHTML = '<p style="width:' + indentWidth + ';margin-right:20px;display:inline-block;">Automatic turn on time: </p>'
+    var inputOn = document.createElement("input");
+    inputOn.type = "time";
+    inputOn.className = "bp3-input";
+    inputOn.id = "textOn";
+    inputOn.style.width = "auto";
+    inputOn.style.marginRight = "10px";
+    inputOn.style.display = "inline-block";
+    // inputOn.value = "09:02";
+    var hour = Math.floor(await GM.getValue("on") / 3600);
+    // console.log(hour);
+    var minute = Math.floor(await GM.getValue("on") / 60) - hour * 60;
+    var humanReadable = "";
+    if(hour < 10)humanReadable = "0" + hour.toString();
+    else humanReadable = hour.toString();
+    humanReadable += ":";
+    if(minute < 10)humanReadable += "0" + minute.toString();
+    else humanReadable += minute.toString();
+    // console.log(minute);
+    inputOn.value = humanReadable;
+    var btInfoOn = document.createElement("div");
+    btInfoOn.style.verticalAlign = "middle";
+    btInfoOn.style.display = "inline-block";
+    btInfoOn.style.cursor = "pointer";
+    btInfoOn.title = 'Format: hh:mm';
+    btInfoOn.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
+    btInfoOn.addEventListener("click", () => {
+      alert('Format: hh:mm');
+    }, true);
+
+    var textOff = document.createElement("div");
+    textOff.setAttribute("class", "bp3-form-content");
+    // textOff.style.display = "inline-block";
+    textOff.innerHTML = '<p style="width:' + indentWidth + ';margin-right:20px;display:inline-block;">Automatic turn off time: </p>'
+    var inputOff = document.createElement("input");
+    inputOff.type = "time";
+    inputOff.className = "bp3-input";
+    inputOff.id = "textOff";
+    inputOff.style.width = "auto";
+    inputOff.style.marginRight = "10px";
+    inputOff.style.display = "inline-block";
+    // inputOff.value = "09:02";
+    hour = Math.floor(await GM.getValue("off") / 3600);
+    // console.log(hour);
+    minute = Math.floor(await GM.getValue("off") / 60) - hour * 60;
+    humanReadable = "";
+    if(hour < 10)humanReadable = "0" + hour.toString();
+    else humanReadable = hour.toString();
+    humanReadable += ":";
+    if(minute < 10)humanReadable += "0" + minute.toString();
+    else humanReadable += minute.toString();
+    // console.log(minute);
+    inputOff.value = humanReadable;
+    var btInfoOff = document.createElement("div");
+    btInfoOff.style.verticalAlign = "middle";
+    btInfoOff.style.display = "inline-block";
+    btInfoOff.style.cursor = "pointer";
+    btInfoOff.title = 'Format: hh:mm';
+    btInfoOff.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
+    btInfoOff.addEventListener("click", () => {
+      alert('Format: hh:mm');
+    }, true);
+    
+    textOff.appendChild(inputOff);
+    textOff.appendChild(btInfoOff);
+    textOn.appendChild(inputOn);
+    textOn.appendChild(btInfoOn);
+    toggleAutoDiv.appendChild(toggleAutoTitle);
+    toggleAutoDiv.appendChild(toggleAuto);
     toggleViewProblemsDiv.appendChild(toggleViewProblemsTitle);
     toggleViewProblemsDiv.appendChild(toggleViewProblems);
     toggleCopyDiv.appendChild(toggleCopyTitle);
@@ -656,6 +768,9 @@
     contents.appendChild(toggleUserDiv);
     contents.appendChild(toggleCopyDiv);
     contents.appendChild(toggleViewProblemsDiv);
+    contents.appendChild(toggleAutoDiv);
+    contents.appendChild(textOn);
+    contents.appendChild(textOff);
     contents.appendChild(btSave);
   }
 
@@ -1222,6 +1337,68 @@
     }
   }
 
+  function turnon(){
+    GM.setValue("dark", 10);
+    applyLight();
+    applyDark();
+    setTimeout(() => {
+      turnon();
+    }, 86400000);
+  }
+
+  function turnoff(){
+    GM.setValue("dark", -10);
+    applyLight();
+    applyDark();
+    setTimeout(() => {
+      turnoff();
+    }, 86400000);
+  }
+
+  async function autos(){
+    if(await GM.getValue("beta") != 10){
+      await GM.setValue("auto", -10);
+      return;
+    }
+    if(await GM.getValue("auto") != 10)return;
+    var d = new Date();
+    var cur = d.getHours() * 3600;
+    cur += d.getMinutes() * 60;
+    cur += d.getSeconds();
+    var toOn = await GM.getValue("on") - cur;
+    if(toOn < 0)toOn += 86400;
+    var toOff = await GM.getValue("off") - cur;
+    if(toOff < 0)toOff += 86400;
+
+    var timeon = await GM.getValue("on");
+    var timeoff = await GM.getValue("off");
+    if(timeon > timeoff){
+      if(cur <= timeoff)cur += 86400;
+      timeoff += 86400;
+    }
+
+    if(toOn > toOff){
+      GM.setValue("dark", 10);
+      applyLight();
+      applyDark();
+    } else{
+      console.log("TES");
+      GM.setValue("dark", -10);
+      applyLight();
+      applyDark();
+    }
+
+    setTimeout(() => {
+      turnon();
+    }, toOn * 1000);
+
+    setTimeout(() => {
+      turnoff();
+    }, toOff * 1000);
+  }
+  
+  autos();
+
   function gmMain() {
     console.log('new page');
     window.setTimeout(() => {
@@ -1232,7 +1409,6 @@
   };
 
   document.addEventListener('keydown', function (event) {
-
     if (event.altKey && (event.keyCode === 38 || event.keyCode === 40)) {
       var tab = document.getElementsByClassName("bp3-tabs bp3-vertical");
       if (tab.length != 1) return;
