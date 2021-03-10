@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.9.6
+// @version      2.9.7
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -676,7 +676,7 @@
     var toggleAutoDiv = document.createElement("div");
 
     var toggleAutoTitle = document.createElement("p");
-    toggleAutoTitle.innerHTML = 'Enable automatic dark/light mode switching(beta): '
+    toggleAutoTitle.innerHTML = 'Enable automatic dark/light mode switching: '
     toggleAutoTitle.style.display = "inline-block";
     toggleAutoTitle.style.marginRight = "20px";
     toggleAutoTitle.style.width = indentWidth;
