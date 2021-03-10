@@ -705,10 +705,10 @@
     btInfoOn.style.verticalAlign = "middle";
     btInfoOn.style.display = "inline-block";
     btInfoOn.style.cursor = "pointer";
-    btInfoOn.title = 'Format: hh:mm';
+    btInfoOn.title = 'when would you like the dari theme to turn on?';
     btInfoOn.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
     btInfoOn.addEventListener("click", () => {
-      alert('Format: hh:mm');
+      alert('when would you like the dari theme to turn on?');
     }, true);
 
     var textOff = document.createElement("div");
@@ -738,10 +738,10 @@
     btInfoOff.style.verticalAlign = "middle";
     btInfoOff.style.display = "inline-block";
     btInfoOff.style.cursor = "pointer";
-    btInfoOff.title = 'Format: hh:mm';
+    btInfoOff.title = 'when would you like the dari theme to turn on?';
     btInfoOff.innerHTML = '<svg data-icon="info-sign" width="20" height="20" viewBox="0 0 20 20"><desc>info-sign</desc><path style="fill: #106ba3" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z" fill-rule="evenodd"></path></svg>'
     btInfoOff.addEventListener("click", () => {
-      alert('Format: hh:mm');
+      alert('when would you like the dari theme to turn on?');
     }, true);
     
     textOff.appendChild(inputOff);
