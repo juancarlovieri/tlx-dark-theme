@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.9.5
+// @version      2.9.6
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -21,10 +21,10 @@
     //   GM.setValue("installed", 10);
     //   return;
     // }
-    // if (await GM.getValue("2.9.4") == null) {
-    //   await GM.setValue("2.9.4", 10);
-    //   alert('Hey there!\n\nThere is a new feature called automatic dark mode switching.\nIt automatically turns on and off dark mode depending on the time you prefer.\nCheck it out on the settings tab!');
-    // }    
+    if (await GM.getValue("2.9.6") == null) {
+      await GM.setValue("2.9.6", 10);
+      alert('Hey there!\n\nThere is a new feature called automatic dark mode switching.\nIt automatically turns on and off dark mode depending on the time you prefer.\nCheck it out on the settings tab!');
+    }    
   }
 
   async function init() {
@@ -687,7 +687,7 @@
     toggleAuto.style.width = "20px";
     toggleAuto.style.display = "inline-block";
     toggleAuto.style.verticalAlign = "middle";
-    if (await GM.getValue("beta") != 10)toggleAuto.disabled = true;
+    // if (await GM.getValue("beta") != 10)toggleAuto.disabled = true;
     if (await GM.getValue("auto") == 10) toggleAuto.checked = true;
 
     var textOn = document.createElement("div");
@@ -1368,10 +1368,10 @@
   }
 
   async function autos(){
-    if(await GM.getValue("beta") != 10){
-      await GM.setValue("auto", -10);
-      return;
-    }
+    // if(await GM.getValue("beta") != 10){
+    //   await GM.setValue("auto", -10);
+    //   return;
+    // }
     if(await GM.getValue("auto") != 10)return;
     var d = new Date();
     var cur = d.getHours() * 3600;
