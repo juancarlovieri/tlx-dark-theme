@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.9.3
+// @version      2.9.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -16,7 +16,19 @@
 (function () {
   'use strict';
 
+  async function updates(){
+    if(GM.getValue("installed") == null){
+      GM.setValue("installed", 10);
+      return;
+    }
+    // if (await GM.getValue("2.9.4") == null) {
+    //   await GM.setValue("2.9.4", 10);
+    //   alert('Hey there!\n\nThere is a new feature called automatic dark mode switching.\nIt automatically turns on and off dark mode depending on the time you prefer.\nCheck it out on the settings tab!');
+    // }    
+  }
+
   async function init() {
+    updates();
     if (await GM.getValue("auto") == null) await GM.setValue("auto", -10);
     if (await GM.getValue("on") == null) await GM.setValue("on", 64800);
     if (await GM.getValue("off") == null) await GM.setValue("off", 21600);
