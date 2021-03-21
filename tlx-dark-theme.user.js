@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      2.9.7
+// @version      2.9.8
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -1014,7 +1014,11 @@
     var arr = document.getElementsByTagName("BODY");
     if (arr.length == 0) return;
     arr = arr[0];
+    var temp = arr.getElementsByClassName("contest-scoreboard-page__info");
     arr = arr.getElementsByClassName("bp3-html-table bp3-html-table-striped scoreboard__content gcj-scoreboard__content");
+    if (temp.length == 0) return;
+    applyLight();
+    applyDark();
     if (arr.length == 0) return;
     var sc = arr[0];
     sc = sc.getElementsByTagName("TBODY");
