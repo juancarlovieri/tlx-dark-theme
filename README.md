@@ -18,8 +18,6 @@ If your script is not updating:
 
 You can find the error codes at the buttom of this README
 
-To toggle beta mode, click "enable beta"/"disable beta" on the top right corner of the screen.
-
 Any feedbacks are welcome :D
 
 **Update 21/09/20**:<br>- Added copy button to copy the samples.
