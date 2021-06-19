@@ -44,6 +44,8 @@ Any feedbacks are welcome :D
 
 **Update 10/03/21**:<br>- Automatic switching is no longer in beta mode
 
+**Update 19/06/21**:<br>- There have been a few changes in tlx's webiste which made the script broken. This issue have been fixed. Please update the script to the newest version.
+
 
 Error Codes:
 - Code 1: You need to include the '#' character at the beginning of the Hex Color Code
