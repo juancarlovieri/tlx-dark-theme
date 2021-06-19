@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      3.0.0
+// @version      3.0.1
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -84,10 +84,11 @@
     toast.className = "bp4-overlay bp4-overlay-open bp4-overlay-inline bp4-toast-container bp4-toast-container-top bp4-toast-container-inline toast";
     toast.tabIndex = "0";
     toast.style.position = "fixed";
-    toast.innerHTML = '<div class="bp4-toast bp4-intent-success bp4-overlay-content bp4-toast-appear-done bp4-toast-enter-done" tabindex="0"><span class="undefined bp4-icon" title="tick"><svg data-icon="tick" width="16" height="16" viewBox="0 0 16 16"><desc>tick</desc><path d="M14 13C13.72 13 13.47 12.89 13.29 12.71L6 5.41L2.71 8.71C2.53 8.89 2.28 9 2 9C1.45 9 1 8.55 1 8C1 7.72 1.11 7.47 1.29 7.29L5.29 3.29C5.47 3.11 5.72 3 6 3S6.53 3.11 6.71 3.29L14.71 11.29C14.89 11.47 15 11.72 15 12C15 12.55 14.55 13 14 13z" fill-rule="evenodd"></path></svg></span><span class="bp4-toast-message">Copied!</span><div class="bp4-button-group bp4-minimal"><button type="button" class="bp4-button"><span class="undefined bp4-icon" title="cross"><svg data-icon="cross" width="16" height="16" viewBox="0 0 16 16"><desc>cross</desc><path d="M9.41 8L12.7 11.29C12.89 11.47 13 11.72 13 12C13 12.55 12.55 13 12 13C11.72 13 11.47 12.89 11.29 12.71L8 9.41L4.71 12.71C4.53 12.89 4.28 13 4 13C3.45 13 3 12.55 3 12C3 11.72 3.11 11.47 3.29 11.29L6.59 8L3.3 4.71C3.11 4.53 3 4.28 3 4C3 3.45 3.45 3 4 3C4.28 3 4.53 3.11 4.71 3.29L8 6.59L11.29 3.3C11.47 3.11 11.72 3 12 3C12.55 3 13 3.45 13 4C13 4.28 12.89 4.53 12.71 4.71L9.41 8z" fill-rule="evenodd"></path></svg></span></button></div></div>';
+    toast.innerHTML = '<div class="bp4-toast bp4-intent-success bp4-overlay-content bp4-toast-appear-done bp4-toast-enter-done" tabindex="0"><span class="undefined bp4-icon" title="tick"><svg data-icon="tick" width="16" height="16" viewBox="0 0 16 16"><desc>tick</desc><path d="M14 13C13.72 13 13.47 12.89 13.29 12.71L6 5.41L2.71 8.71C2.53 8.89 2.28 9 2 9C1.45 9 1 8.55 1 8C1 7.72 1.11 7.47 1.29 7.29L5.29 3.29C5.47 3.11 5.72 3 6 3S6.53 3.11 6.71 3.29L14.71 11.29C14.89 11.47 15 11.72 15 12C15 12.55 14.55 13 14 13z" fill-rule="evenodd"></path></svg></span><span class="bp4-toast-message">' + str + '</span><div class="bp4-button-group bp4-minimal"><button type="button" class="bp4-button"><span class="undefined bp4-icon" title="cross"><svg data-icon="cross" width="16" height="16" viewBox="0 0 16 16"><desc>cross</desc><path d="M9.41 8L12.7 11.29C12.89 11.47 13 11.72 13 12C13 12.55 12.55 13 12 13C11.72 13 11.47 12.89 11.29 12.71L8 9.41L4.71 12.71C4.53 12.89 4.28 13 4 13C3.45 13 3 12.55 3 12C3 11.72 3.11 11.47 3.29 11.29L6.59 8L3.3 4.71C3.11 4.53 3 4.28 3 4C3 3.45 3.45 3 4 3C4.28 3 4.53 3.11 4.71 3.29L8 6.59L11.29 3.3C11.47 3.11 11.72 3 12 3C12.55 3 13 3.45 13 4C13 4.28 12.89 4.53 12.71 4.71L9.41 8z" fill-rule="evenodd"></path></svg></span></button></div></div>';
     document.body.appendChild(toast);
 
-    var btClose = document.getElementsByClassName("bp4-button")[0];
+    var btClose = toast.getElementsByClassName("bp4-button")[0];
+    // console.log(btClose);
     btClose.addEventListener("click", function () {
       fadeOutToast(this.parentNode.parentNode);
       // document.body.removeChild(this.parentNode.parentNode.parentNode);
