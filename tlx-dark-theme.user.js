@@ -81,13 +81,15 @@
     //   return;
     // }
     var toast = document.createElement("div");
-    toast.className = "bp3-overlay bp3-overlay-inline bp3-toast-container bp3-toast-container-top toast";
-    toast.innerHTML = '<div class="bp3-toast bp3-intent-success bp3-overlay-content bp3-toast-enter-done" tabindex="0"><span icon="tick" class="bp3-icon bp3-icon-tick"><svg data-icon="tick" width="16" height="16" viewBox="0 0 16 16"><desc>tick</desc><path d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z" fill-rule="evenodd"></path></svg></span><span class="bp3-toast-message">' + str + '</span><div class="bp3-button-group bp3-minimal"><button type="button" class="bp3-button close-toast"><span icon="cross" class="bp3-icon bp3-icon-cross"><svg data-icon="cross" width="16" height="16" viewBox="0 0 16 16"><desc>cross</desc><path d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z" fill-rule="evenodd"></path></svg></span></button></div></div>';
+    toast.className = "bp4-overlay bp4-overlay-open bp4-overlay-inline bp4-toast-container bp4-toast-container-top bp4-toast-container-inline toast";
+    toast.tabIndex = "0";
+    toast.style.position = "fixed";
+    toast.innerHTML = '<div class="bp4-toast bp4-intent-success bp4-overlay-content bp4-toast-appear-done bp4-toast-enter-done" tabindex="0"><span class="undefined bp4-icon" title="tick"><svg data-icon="tick" width="16" height="16" viewBox="0 0 16 16"><desc>tick</desc><path d="M14 13C13.72 13 13.47 12.89 13.29 12.71L6 5.41L2.71 8.71C2.53 8.89 2.28 9 2 9C1.45 9 1 8.55 1 8C1 7.72 1.11 7.47 1.29 7.29L5.29 3.29C5.47 3.11 5.72 3 6 3S6.53 3.11 6.71 3.29L14.71 11.29C14.89 11.47 15 11.72 15 12C15 12.55 14.55 13 14 13z" fill-rule="evenodd"></path></svg></span><span class="bp4-toast-message">Copied!</span><div class="bp4-button-group bp4-minimal"><button type="button" class="bp4-button"><span class="undefined bp4-icon" title="cross"><svg data-icon="cross" width="16" height="16" viewBox="0 0 16 16"><desc>cross</desc><path d="M9.41 8L12.7 11.29C12.89 11.47 13 11.72 13 12C13 12.55 12.55 13 12 13C11.72 13 11.47 12.89 11.29 12.71L8 9.41L4.71 12.71C4.53 12.89 4.28 13 4 13C3.45 13 3 12.55 3 12C3 11.72 3.11 11.47 3.29 11.29L6.59 8L3.3 4.71C3.11 4.53 3 4.28 3 4C3 3.45 3.45 3 4 3C4.28 3 4.53 3.11 4.71 3.29L8 6.59L11.29 3.3C11.47 3.11 11.72 3 12 3C12.55 3 13 3.45 13 4C13 4.28 12.89 4.53 12.71 4.71L9.41 8z" fill-rule="evenodd"></path></svg></span></button></div></div>';
     document.body.appendChild(toast);
 
-    var btClose = document.getElementsByClassName("bp3-button close-toast")[0];
+    var btClose = document.getElementsByClassName("bp4-button")[0];
     btClose.addEventListener("click", function () {
-      fadeOutToast(this.parentNode.parentNode.parentNode);
+      fadeOutToast(this.parentNode.parentNode);
       // document.body.removeChild(this.parentNode.parentNode.parentNode);
     });
 
@@ -95,7 +97,7 @@
     var maxheight = 100;
     var time = 100;
     var timer = null;
-    var slider = document.getElementsByClassName("bp3-toast bp3-intent-success bp3-overlay-content bp3-toast-enter-done")[0];
+    var slider = document.getElementsByClassName("bp4-toast bp4-intent-success bp4-overlay-content bp4-toast-enter-done")[0];
     // clearInterval(timer);
     var instanceheight = -10;
     slider.style.marginTop = instanceheight + 'px';
@@ -133,7 +135,7 @@
   async function applyDark() {
     if (await GM.getValue("dark") == -10) return;
     await rmLight();
-    var style = `body{background:#252525 !important;color:#FFFFFF !important;}.bp3-card{background:#202020 !important;color:#FFFFFF !important;}.bp3-running-text table th, table.bp3-html-table th{border-color:#606060 !important;color:#e3e3e3 !important;}.single-problemset-problem-routes__title{color:#FFFFFF !important}td{border: 1px solid !important;border-color:#606060 !important;color:#e3e3e3 !important;}.programming-problem-statement__name{color:#FFFFFF !important;}.html-text pre{background-color:#151515 !important;}code{background-color:transparent !important;color:#e3e3e3 !important}pre code{background-color:transparent !important;}.content-card h3{color:#e3e3e3 !important;}.card-sidebar .bp3-tab[aria-selected=true]{background-color:#303030 !important;color:#3b73b9 !important}h1, h2, h3, h4, h5{color:#e3e3e3 !important}.rating-purple{color:#ce8aff!important; background-color:transparent !important}.rating-red{color:#ff4747 !important; background-color:transparent !important}.rating-unrated{color:#e3e3e3 !important; background-color:transparent !important}.rating-gray{color:#8c8c8c !important; background-color:transparent !important}.rating-blue{color:#757dff !important; background-color:transparent !important}.rating-green{color:#00c700 !important; background-color:transparent !important}a{background-color:transparent !important;color:#1E90FF}.content-card-link{border: 1px solid !important; border-color: #404040 !important}.content-card-link:hover{background-color:#151515 !important}.archive-filter__category{color:#FFFFFF !important}.archive-filter__option--inactive{color:#C0C0C0 !important}table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(odd) td{background:#272727}.card-sidebar .bp3-tab a{color:#1E90FF}.menubar{background-color:#353535 !important;overflow-y:hidden;}.menubar__content .bp3-tab[aria-selected=true]{background-color:#303030 !important;color:#1E90FF}.menubar__content .bp3-tab{color:#1E90FF}.form-table-input__label{color:#FFFFFF}small{color:#e3e3e3}.card__title{border-bottom:1px solid;border-color:#404040}hr{border-color:#404040 !important}.bp3-breadcrumb, .bp3-breadcrumbs-collapsed{color:#909090 !important}.bp3-breadcrumb-current{color:#C0C0C0 !important}.bp3-button-group .bp3-button.bp3-active, .bp3-button-group .bp3-button:active{background:#505050 !important}.bp3-button-group .bp3-button{background:#404040 !important}.bp3-input{background:#303030;color:#C0C0C0}.bp3-button-group .bp3-button.bp3-fill, .bp3-button-group.bp3-fill .bp3-button:not(.bp3-fixed){color:#FFFFFF}.bp3-menu-item>.bp3-fill{color:#000000}.rating-red{color:#ff4747 !important; background-color:transparent !important}.bp3-file-upload-input{background-color:#303030 !important;color:#A0A0A0 !important}.header{background-color:#232323!important}.programming-submission-details pre{background-color:#202020 !important}span.token{background-color:transparent !important}.secondary-info{color:#e3e3e3 !important}.widget-user__profile, .widget-user__profile svg{background-color:#404040;fill:#C0C0C0 !important}.form-table-input td{border:none !important}.html-text th{color:#e3e3e3 !important;background-color:#181818 !important}.menubar{overflow-x:hidden !important; box-shadow:none}table.gcj-scoreboard__content td strong.total-points-cell{color:#e3e3e3 !important}table.gcj-scoreboard__content td strong{color:black}table.gcj-scoreboard__content td strong{color:white}table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(odd) td.accepted, table.bp3-html-table.bp3-html-table-striped tbody tr:nth-child(even) td.accepted{background-color:#339933 !important;}td.accepted strong{color:black !important}table.gcj-scoreboard__content td.not-accepted small, table.gcj-scoreboard__content td.not-accepted strong{color:#e3e3e3 !important}table.gcj-scoreboard__content td.accepted small{color:#353535 !important}.gcj-scoreboard__content td small{color:#b0b0b0 !important}.bp3-button.bp3-intent-warning{background-color: #d9822b !important}.bp3-button.bp3-small, .bp3-small .bp3-button{background:transparent;border:none;color:#e3e3e3}.bp3-file-upload-input:after{background:#696969;color:#b5b5b5}.bp3-file-upload-input:hover{background:#505050 !important}.bp3-file-upload-input:hover:after{background:#696969 !important}.bp3-button.bp3-small:hover{background:#404040 !important}img:not([class]){background:white}.bp3-tabs.bp3-vertical>.bp3-tab-list .bp3-tab-indicator-wrapper .bp3-tab-indicator{background-color:#303030 !important}.html-text .spoiler{background-color:#151515 !important}.contest-registrants-dialog__body{background-color:#303030}.bp3-dialog{background-color:#202020}.bp3-dialog-header{background:#202020}.bp3-tabs.bp3-vertical{background-color:#202020 !important}.bp3-navbar-divider{background-color:#e3e3e3}table.scoreboard__content .my-rank, table.scoreboard__content .my-rank td{background-color:#404040 !important}.bp3-callout.bp3-intent-warning{background-color:#B36822 !important}p{color:` + await GM.getValue('color') + `!important}ol li, ul li{color:` + await GM.getValue('color') + `}span:not([class]){color: ` + await GM.getValue('color') + `!important}font{color:` + await GM.getValue('color') + `!important}code, pre{background-color: #202020 !important; border: 1px solid #606060 !important}`;    
+    var style = `body{background:#252525 !important;color:#FFFFFF !important;}.bp4-card{background:#202020 !important;color:#FFFFFF !important;}.bp4-running-text table th, table.bp4-html-table th{border-color:#606060 !important;color:#e3e3e3 !important;}.single-problemset-problem-routes__title{color:#FFFFFF !important}td{border: 1px solid !important;border-color:#606060 !important;color:#e3e3e3 !important;}.programming-problem-statement__name{color:#FFFFFF !important;}.html-text pre{background-color:#151515 !important;}code{background-color:transparent !important;color:#e3e3e3 !important}pre code{background-color:transparent !important;}.content-card h3{color:#e3e3e3 !important;}.card-sidebar .bp4-tab[aria-selected=true]{background-color:#303030 !important;color:#3b73b9 !important}h1, h2, h3, h4, h5{color:#e3e3e3 !important}.rating-purple{color:#ce8aff!important; background-color:transparent !important}.rating-red{color:#ff4747 !important; background-color:transparent !important}.rating-unrated{color:#e3e3e3 !important; background-color:transparent !important}.rating-gray{color:#8c8c8c !important; background-color:transparent !important}.rating-blue{color:#757dff !important; background-color:transparent !important}.rating-green{color:#00c700 !important; background-color:transparent !important}a{background-color:transparent !important;color:#1E90FF}.content-card-link{border: 1px solid !important; border-color: #404040 !important}.content-card-link:hover{background-color:#151515 !important}.archive-filter__category{color:#FFFFFF !important}.archive-filter__option--inactive{color:#C0C0C0 !important}table.bp4-html-table.bp4-html-table-striped tbody tr:nth-child(odd) td{background:#272727}.card-sidebar .bp4-tab a{color:#1E90FF}.menubar{background-color:#353535 !important;overflow-y:hidden;}.menubar__content .bp4-tab[aria-selected=true]{background-color:#303030 !important;color:#1E90FF}.menubar__content .bp4-tab{color:#1E90FF}.form-table-input__label{color:#FFFFFF}small{color:#e3e3e3}.card__title{border-bottom:1px solid;border-color:#404040}hr{border-color:#404040 !important}.bp4-breadcrumb, .bp4-breadcrumbs-collapsed{color:#909090 !important}.bp4-breadcrumb-current{color:#C0C0C0 !important}.bp4-button-group .bp4-button.bp4-active, .bp4-button-group .bp4-button:active{background:#505050 !important}.bp4-button-group .bp4-button{background:#404040 !important}.bp4-input{background:#303030;color:#C0C0C0}.bp4-button-group .bp4-button.bp4-fill, .bp4-button-group.bp4-fill .bp4-button:not(.bp4-fixed){color:#FFFFFF}.bp4-menu-item>.bp4-fill{color:#000000}.rating-red{color:#ff4747 !important; background-color:transparent !important}.bp4-file-upload-input{background-color:#303030 !important;color:#A0A0A0 !important}.header{background-color:#232323!important}.programming-submission-details pre{background-color:#202020 !important}span.token{background-color:transparent !important}.secondary-info{color:#e3e3e3 !important}.widget-user__profile, .widget-user__profile svg{background-color:#404040;fill:#C0C0C0 !important}.form-table-input td{border:none !important}.html-text th{color:#e3e3e3 !important;background-color:#181818 !important}.menubar{overflow-x:hidden !important; box-shadow:none}table.gcj-scoreboard__content td strong.total-points-cell{color:#e3e3e3 !important}table.gcj-scoreboard__content td strong{color:black}table.gcj-scoreboard__content td strong{color:white}table.bp4-html-table.bp4-html-table-striped tbody tr:nth-child(odd) td.accepted, table.bp4-html-table.bp4-html-table-striped tbody tr:nth-child(even) td.accepted{background-color:#339933 !important;}td.accepted strong{color:black !important}table.gcj-scoreboard__content td.not-accepted small, table.gcj-scoreboard__content td.not-accepted strong{color:#e3e3e3 !important}table.gcj-scoreboard__content td.accepted small{color:#353535 !important}.gcj-scoreboard__content td small{color:#b0b0b0 !important}.bp4-button.bp4-intent-warning{background-color: #d9822b !important}.bp4-button.bp4-small, .bp4-small .bp4-button{background:transparent;border:none;color:#e3e3e3}.bp4-file-upload-input:after{background:#696969;color:#b5b5b5}.bp4-file-upload-input:hover{background:#505050 !important}.bp4-file-upload-input:hover:after{background:#696969 !important}.bp4-button.bp4-small:hover{background:#404040 !important}img:not([class]){background:white}.bp4-tabs.bp4-vertical>.bp4-tab-list .bp4-tab-indicator-wrapper .bp4-tab-indicator{background-color:#303030 !important}.html-text .spoiler{background-color:#151515 !important}.contest-registrants-dialog__body{background-color:#303030}.bp4-dialog{background-color:#202020}.bp4-dialog-header{background:#202020}.bp4-tabs.bp4-vertical{background-color:#202020 !important}.bp4-navbar-divider{background-color:#e3e3e3}table.scoreboard__content .my-rank, table.scoreboard__content .my-rank td{background-color:#404040 !important}.bp4-callout.bp4-intent-warning{background-color:#B36822 !important}p{color:` + await GM.getValue('color') + `!important}ol li, ul li{color:` + await GM.getValue('color') + `}span:not([class]){color: ` + await GM.getValue('color') + `!important}font{color:` + await GM.getValue('color') + `!important}code, pre{background-color: #202020 !important; border: 1px solid #606060 !important}`;    
     var elem = document.createElement('style');
     elem.id = 'tlx-dark-theme';
     elem.type = 'text/css';
@@ -254,7 +256,7 @@
     zNode.innerHTML = '<button id="btBeta" type="button" class="btBeta> <img src="https"//foo.com alt="dark"/>' +
       'switch</button>';
     zNode.setAttribute('id', 'btBetaContainer');
-    var arr = document.getElementsByClassName("bp3-navbar header");
+    var arr = document.getElementsByClassName("bp4-navbar header");
     if (arr.length != 1) {
       return;
     }
@@ -295,13 +297,13 @@
 
   function searchUserPress(node) {
     node = node.target;
-    var searchInput = document.getElementsByClassName("bp3-input")[0];
+    var searchInput = document.getElementsByClassName("bp4-input")[0];
     var res = document.createElement("div");
 
     var divTable = document.createElement("div");
-    divTable.className = "bp3-card bp3-elevation-0 card__content";
+    divTable.className = "bp4-card bp4-elevation-0 card__content";
     var table = document.createElement("table");
-    table.className = "bp3-html-table bp3-html-table-striped table-list ratings-page-table";
+    table.className = "bp4-html-table bp4-html-table-striped table-list ratings-page-table";
     var head = document.createElement("thead");
     var headtr = document.createElement("tr");
     headtr.innerHTML = '<th style="width:60%;">User</th><th style="width:20%;">Rating</th><th>Score</th>';
@@ -385,17 +387,17 @@
     // console.log(scoreList);
     var searchBar = document.createElement("div");
     var searchInput = document.createElement("div");
-    searchInput.setAttribute("class", "bp3-form-content");
+    searchInput.setAttribute("class", "bp4-form-content");
     searchInput.style.display = "inline-block";
     searchInput.id = "searchInput";
     var input = document.createElement("input");
     input.type = "text";
-    input.className = "bp3-input";
+    input.className = "bp4-input";
     input.style.margin = "10px";
     searchInput.appendChild(input);
     searchBar.appendChild(searchInput);
     var btSearch = document.createElement("button");
-    btSearch.className = "bp3-button bp3-intent-primary search-box-button";
+    btSearch.className = "bp4-button bp4-intent-primary search-box-button";
     btSearch.addEventListener("click", searchUserPress, false);
     btSearch.innerHTML = "Search";
     btSearch.style.margin = "20px";
@@ -407,7 +409,7 @@
     res.style.display = "inline-block";
     res.style.width = "80%";
     var sort = document.createElement("div");
-    sort.className = "bp3-card bp3-elevation-0 content-card";
+    sort.className = "bp4-card bp4-elevation-0 content-card";
     sort.style.display = "inline-block";
     sort.style.verticalAlign = "top";
     sort.style.width = "15%";
@@ -415,14 +417,14 @@
     sort.style.marginLeft = "10px";
     sort.innerHTML = "<h4>Sort By</h4>";
     var byRating = document.createElement("label");
-    byRating.className = 'bp3-control bp3-radio';
-    byRating.innerHTML = '<input name="archiveSlug" type="radio" id="byRating"><span class="bp3-control-indicator"></span><span>Rating</span>';
+    byRating.className = 'bp4-control bp4-radio';
+    byRating.innerHTML = '<input name="archiveSlug" type="radio" id="byRating"><span class="bp4-control-indicator"></span><span>Rating</span>';
     var byScore = document.createElement("label");
-    byScore.className = 'bp3-control bp3-radio';
-    byScore.innerHTML = '<input name="archiveSlug" type="radio" id="byScore"><span class="bp3-control-indicator"></span><span>Score</span>';
+    byScore.className = 'bp4-control bp4-radio';
+    byScore.innerHTML = '<input name="archiveSlug" type="radio" id="byScore"><span class="bp4-control-indicator"></span><span>Score</span>';
     var byUsername = document.createElement("label");
-    byUsername.className = 'bp3-control bp3-radio';
-    byUsername.innerHTML = '<input name="archiveSlug" type="radio" id="byUsername"><span class="bp3-control-indicator"></span><span>Username</span>';
+    byUsername.className = 'bp4-control bp4-radio';
+    byUsername.innerHTML = '<input name="archiveSlug" type="radio" id="byUsername"><span class="bp4-control-indicator"></span><span>Username</span>';
     sort.appendChild(byRating);
     sort.appendChild(byScore);
     sort.appendChild(byUsername);
@@ -458,17 +460,17 @@
   }
 
   function userTab() {
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "true");
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "true");
-    var tabs = document.getElementsByClassName("bp3-tab");
+    document.getElementById("bp4-tab-title_menubar_user").setAttribute("aria-expanded", "true");
+    document.getElementById("bp4-tab-title_menubar_user").setAttribute("aria-selected", "true");
+    var tabs = document.getElementsByClassName("bp4-tab");
     for (var i = 0; i < tabs.length; ++i) {
-      if (tabs[i].id == "bp3-tab-title_menubar_user") continue;
+      if (tabs[i].id == "bp4-tab-title_menubar_user") continue;
       tabs[i].setAttribute("aria-expanded", "false");
       tabs[i].setAttribute("aria-selected", "false");
     }
 
     var contents = document.getElementsByClassName("layout-full-page")[0];
-    contents.innerHTML = '<div class="bp3-progress-bar loading-state"><div class="bp3-progress-meter"></div></div>';
+    contents.innerHTML = '<div class="bp4-progress-bar loading-state"><div class="bp4-progress-meter"></div></div>';
 
     GM_xmlhttpRequest({
       method: "GET",
@@ -553,23 +555,23 @@
   async function onPrefTab() {
     var indentWidth = "330px";
 
-    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-expanded", "true");
-    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-selected", "true");
-    var tabs = document.getElementsByClassName("bp3-tab");
+    document.getElementById("bp4-tab-title_menubar_preferences").setAttribute("aria-expanded", "true");
+    document.getElementById("bp4-tab-title_menubar_preferences").setAttribute("aria-selected", "true");
+    var tabs = document.getElementsByClassName("bp4-tab");
     for (var i = 0; i < tabs.length; ++i) {
-      if (tabs[i].id == "bp3-tab-title_menubar_preferences") continue;
+      if (tabs[i].id == "bp4-tab-title_menubar_preferences") continue;
       tabs[i].setAttribute("aria-expanded", "false");
       tabs[i].setAttribute("aria-selected", "false");
     }
     var contents = document.getElementsByClassName("layout-full-page")[0];
     contents.innerHTML = "";
     var textColor = document.createElement("div");
-    textColor.setAttribute("class", "bp3-form-content");
+    textColor.setAttribute("class", "bp4-form-content");
     textColor.style.display = "inline-block";
     textColor.innerHTML = '<p style="width:' + indentWidth + ';margin-right:20px;display:inline-block;">Text Color: </p>'
     var input = document.createElement("input");
     input.type = "text";
-    input.className = "bp3-input";
+    input.className = "bp4-input";
     input.id = "textColor";
     input.style.width = "auto";
     input.style.marginRight = "10px";
@@ -586,7 +588,7 @@
     }, true);
 
     var btSave = document.createElement("button");
-    btSave.className = "bp3-button bp3-intent-primary search-box-button";
+    btSave.className = "bp4-button bp4-intent-primary search-box-button";
     btSave.innerHTML = "Save";
     btSave.style.display = "block";
     btSave.style.marginLeft = "0";
@@ -691,12 +693,12 @@
     if (await GM.getValue("auto") == 10) toggleAuto.checked = true;
 
     var textOn = document.createElement("div");
-    textOn.setAttribute("class", "bp3-form-content");
+    textOn.setAttribute("class", "bp4-form-content");
     // textOn.style.display = "inline-block";
     textOn.innerHTML = '<p style="width:' + indentWidth + ';margin-right:20px;display:inline-block;">Automatic turn on time: </p>'
     var inputOn = document.createElement("input");
     inputOn.type = "time";
-    inputOn.className = "bp3-input";
+    inputOn.className = "bp4-input";
     inputOn.id = "textOn";
     inputOn.style.width = "auto";
     inputOn.style.marginRight = "10px";
@@ -724,12 +726,12 @@
     }, true);
 
     var textOff = document.createElement("div");
-    textOff.setAttribute("class", "bp3-form-content");
+    textOff.setAttribute("class", "bp4-form-content");
     // textOff.style.display = "inline-block";
     textOff.innerHTML = '<p style="width:' + indentWidth + ';margin-right:20px;display:inline-block;">Automatic turn off time: </p>'
     var inputOff = document.createElement("input");
     inputOff.type = "time";
-    inputOff.className = "bp3-input";
+    inputOff.className = "bp4-input";
     inputOff.id = "textOff";
     inputOff.style.width = "auto";
     inputOff.style.marginRight = "10px";
@@ -788,14 +790,14 @@
 
   function retractUserTab(node) {
     node = node.target
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-expanded", "false");
-    document.getElementById("bp3-tab-title_menubar_user").setAttribute("aria-selected", "false");
+    document.getElementById("bp4-tab-title_menubar_user").setAttribute("aria-expanded", "false");
+    document.getElementById("bp4-tab-title_menubar_user").setAttribute("aria-selected", "false");
   }
 
   function retractPrefTab(node) {
     node = node.target
-    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-expanded", "false");
-    document.getElementById("bp3-tab-title_menubar_preferences").setAttribute("aria-selected", "false");
+    document.getElementById("bp4-tab-title_menubar_preferences").setAttribute("aria-expanded", "false");
+    document.getElementById("bp4-tab-title_menubar_preferences").setAttribute("aria-selected", "false");
     // console.log(node.href);
     if (node.href != "" && node.href != null && location.href.indexOf(node.href) != -1) {
       location.replace(node.href);
@@ -805,22 +807,22 @@
   async function searchUser() {
     // if(await GM.getValue("beta") == -10)return;
     if (await GM.getValue("user") == -10) return;
-    if (document.getElementById("bp3-tab-title_menubar_user") != null) {
+    if (document.getElementById("bp4-tab-title_menubar_user") != null) {
       return;
     }
-    var tabs = document.getElementsByClassName("bp3-tab");
+    var tabs = document.getElementsByClassName("bp4-tab");
     for (var i = 0; i < tabs.length; ++i) {
       tabs[i].addEventListener("click", retractUserTab, false);
     }
-    var tablist = document.getElementsByClassName("bp3-tab-list")[0];
+    var tablist = document.getElementsByClassName("bp4-tab-list")[0];
     var newTab = document.createElement("div");
     newTab.ariaDisabled = "false";
     newTab.ariaExpanded = "false";
-    newTab.id = "bp3-tab-title_menubar_user";
-    newTab.className = "bp3-tab";
+    newTab.id = "bp4-tab-title_menubar_user";
+    newTab.className = "bp4-tab";
     newTab.setAttribute("role", "tab");
     newTab.setAttribute("tabindex", "0");
-    newTab.setAttribute("aria-controls", "bp3-tab-panel_menubar_ranking");
+    newTab.setAttribute("aria-controls", "bp4-tab-panel_menubar_ranking");
     newTab.innerHTML = "<a> User Search </a>";
     newTab.addEventListener("click", userTab, false);
     tablist.appendChild(newTab);
@@ -828,22 +830,22 @@
 
   async function prefTab() {
     // if(await GM.getValue("beta") == -10)return;
-    if (document.getElementById("bp3-tab-title_menubar_preferences") != null) {
+    if (document.getElementById("bp4-tab-title_menubar_preferences") != null) {
       return;
     }
-    var tabs = document.getElementsByClassName("bp3-tab");
+    var tabs = document.getElementsByClassName("bp4-tab");
     for (var i = 0; i < tabs.length; ++i) {
       tabs[i].addEventListener("click", retractPrefTab, false);
     }
-    var tablist = document.getElementsByClassName("bp3-tab-list")[0];
+    var tablist = document.getElementsByClassName("bp4-tab-list")[0];
     var newTab = document.createElement("div");
     newTab.ariaDisabled = "false";
     newTab.ariaExpanded = "false";
-    newTab.id = "bp3-tab-title_menubar_preferences";
-    newTab.className = "bp3-tab";
+    newTab.id = "bp4-tab-title_menubar_preferences";
+    newTab.className = "bp4-tab";
     newTab.setAttribute("role", "tab");
     newTab.setAttribute("tabindex", "0");
-    newTab.setAttribute("aria-controls", "bp3-tab-panel_menubar_ranking");
+    newTab.setAttribute("aria-controls", "bp4-tab-panel_menubar_ranking");
     newTab.innerHTML = "<a> Settings </a>";
     newTab.addEventListener("click", onPrefTab, false);
     tablist.appendChild(newTab);
@@ -861,7 +863,7 @@
     //                 + 'switch</button>'
     //                 ;
     // zNode.setAttribute ('id', 'btDarkContainer');
-    // var arr = document.getElementsByClassName("bp3-navbar header");
+    // var arr = document.getElementsByClassName("bp4-navbar header");
     // if(arr.length != 1){
     //   return;
     // }
@@ -1015,7 +1017,7 @@
     if (arr.length == 0) return;
     arr = arr[0];
     var temp = arr.getElementsByClassName("contest-scoreboard-page__info");
-    arr = arr.getElementsByClassName("bp3-html-table bp3-html-table-striped scoreboard__content gcj-scoreboard__content");
+    arr = arr.getElementsByClassName("bp4-html-table bp4-html-table-striped scoreboard__content gcj-scoreboard__content");
     if (temp.length == 0) return;
     applyLight();
     applyDark();
@@ -1145,12 +1147,12 @@
     input.style.width = 'auto';
     input.style.marginLeft = '10px';
     input.style.display = 'inline-block';
-    // <button type="submit" class="bp3-button bp3-intent-primary"></button>
+    // <button type="submit" class="bp4-button bp4-intent-primary"></button>
     var resDelta = document.createElement("p");
     resDelta.innerHTML = "My delta would be: <strong>-</strong>";
     var btCalc = document.createElement("button");
-    btCalc.setAttribute("class", "bp3-button bp3-intent-primary");
-    btCalc.innerHTML = '<span class="bp3-button-text">calculate</span>';
+    btCalc.setAttribute("class", "bp4-button bp4-intent-primary");
+    btCalc.innerHTML = '<span class="bp4-button-text">calculate</span>';
     btCalc.addEventListener("click", function () {
       var usr = document.querySelectorAll("[data-key]");
       // console.log(usr);
@@ -1207,7 +1209,7 @@
     });
     input.setAttribute('type', 'number');
     zNode.append(input);
-    var el = document.getElementsByClassName("bp3-card bp3-elevation-0 content-card")[0];
+    var el = document.getElementsByClassName("bp4-card bp4-elevation-0 content-card")[0];
     el.append(zNode);
     el.append(askRating);
     el.append(customRating);
@@ -1323,7 +1325,7 @@
     var check = document.getElementById('viewAllProblem');
     if (check != null) return;
     var btView = document.createElement('button');
-    btView.setAttribute('class', 'bp3-button bp3-intent-primary');
+    btView.setAttribute('class', 'bp4-button bp4-intent-primary');
     btView.setAttribute('id', 'viewAllProblem');
     btView.innerHTML = "View All Problems";
     problems[0].parentNode.appendChild(btView);
@@ -1426,13 +1428,13 @@
 
   document.addEventListener('keydown', function (event) {
     if (event.altKey && (event.keyCode === 38 || event.keyCode === 40)) {
-      var tab = document.getElementsByClassName("bp3-tabs bp3-vertical");
+      var tab = document.getElementsByClassName("bp4-tabs bp4-vertical");
       if (tab.length != 1) return;
       tab = tab[0];
-      tab = tab.getElementsByClassName('bp3-tab-list');
+      tab = tab.getElementsByClassName('bp4-tab-list');
       if (tab.length != 1) return;
       tab = tab[0];
-      var arr = tab.querySelectorAll(".bp3-tab");
+      var arr = tab.querySelectorAll(".bp4-tab");
       var indx = -1;
       for (var i = 0; i < arr.length; i++) {
         if (arr[i].ariaExpanded == "true") {
