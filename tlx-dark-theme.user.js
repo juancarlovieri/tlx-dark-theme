@@ -20,7 +20,7 @@
     // if(GM.getValue("installed") == null){
     //   GM.setValue("installed", 10);
     //   return;
-    // }
+    // };
     if (await GM.getValue("2.9.6") == null) {
       await GM.setValue("2.9.6", 10);
       alert('Hey there!\n\nThere is a new feature called automatic dark mode switching.\nIt automatically turns on and off dark mode depending on the time you prefer.\nCheck it out on the settings tab!');
