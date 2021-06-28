@@ -18,8 +18,6 @@ If your script is not updating:
 
 You can find the error codes at the buttom of this README
 
-To toggle beta mode, click "enable beta"/"disable beta" on the top right corner of the screen.
-
 Any feedbacks are welcome :D
 
 **Update 21/09/20**:<br>- Added copy button to copy the samples.
@@ -43,6 +41,8 @@ Any feedbacks are welcome :D
 **Update 06/03/21**:<br>- Added automatic switching between dark and light mode. This feature is accessible in the settings tab. However, this feature is still in beta mode.
 
 **Update 10/03/21**:<br>- Automatic switching is no longer in beta mode
+
+**Update 19/06/21**:<br>- There have been a few changes in tlx's website which made the script broken. This issue have been fixed. Please update the script to the newest version.
 
 
 Error Codes:
