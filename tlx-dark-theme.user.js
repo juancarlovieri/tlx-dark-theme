@@ -148,9 +148,6 @@
     elem2.innerText = style2;
     apply(elem);
     apply(elem2);
-
-    var header = document.getElementsByClassName(".bp4-navbar header")[0];
-    header.style.backgroundColor = "#232323";
   }
 
   async function rmDark() {
