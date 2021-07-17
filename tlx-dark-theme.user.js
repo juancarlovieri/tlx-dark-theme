@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      3.0.2
+// @version      3.0.3
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -458,7 +458,7 @@
     convertScoreList();
     GM_xmlhttpRequest({
       method: "GET",
-      url: 'https://jophiel.tlx.toki.id/api/v2/profiles/top/?page=1&pageSize=1000000000',
+      url: 'https://api.tlx.toki.id/v2/profiles/top/?page=1&pageSize=1000000000',
       onload: rankDownload
     });
   }
@@ -478,7 +478,7 @@
 
     GM_xmlhttpRequest({
       method: "GET",
-      url: 'https://jerahmeel.tlx.toki.id/api/v2/user-stats/top?page=1&pageSize=1000000000',
+      url: 'https://api.tlx.toki.id/v2/stats/users/top?page=1&pageSize=1000000000',
       onload: userListDownload
     });
   }
