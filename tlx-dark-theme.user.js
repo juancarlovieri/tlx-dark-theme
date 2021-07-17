@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         tlx dark theme
-// @version      3.0.3
+// @version      3.0.4
 // @description  dark theme for tlx
 // @author       Juan Carlo Vieri
 // @match        *://tlx.toki.id/*
@@ -1034,14 +1034,14 @@
     contest = contest[contest.length - 2];
     GM_xmlhttpRequest({
       method: "GET",
-      url: "https://uriel.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
+      url: "https://api.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
       onload: function (response) {
         if (response.status >= 300) return;
         var id = JSON.parse(response.responseText).contest.jid;
         // console.log(id);
         GM_xmlhttpRequest({
           method: "GET",
-          url: 'https://uriel.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
+          url: 'https://api.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
           onload: function (response) {
             if (response.status >= 300) return;
             // console.log(id);
@@ -1060,14 +1060,14 @@
   function present(usr, contest, toggle) {
     GM_xmlhttpRequest({
       method: "GET",
-      url: "https://uriel.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
+      url: "https://api.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
       onload: function (response) {
         if (response.status >= 300) return;
         var id = JSON.parse(response.responseText).contest.jid;
         // console.log(id);
         GM_xmlhttpRequest({
           method: "GET",
-          url: 'https://uriel.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
+          url: 'https://api.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
           onload: function (response) {
             if (response.status >= 300) return;
             var uti = new Map(Object.entries(JSON.parse(response.responseText).profilesMap));
@@ -1169,14 +1169,14 @@
       contest = contest[contest.length - 2];
       GM_xmlhttpRequest({
         method: "GET",
-        url: "https://uriel.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
+        url: "https://api.tlx.toki.id/api/v2/contest-web/slug/" + contest + "/with-config",
         onload: function (response) {
           if (response.status >= 300) return;
           var id = JSON.parse(response.responseText).contest.jid;
           // console.log(id);
           GM_xmlhttpRequest({
             method: "GET",
-            url: 'https://uriel.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
+            url: 'https://api.tlx.toki.id/api/v2/contests/' + id + '/scoreboard',
             onload: function (response) {
               if (response.status >= 300) return;
               var newRating = custVal.value;
@@ -1467,7 +1467,7 @@
       alert('After pressing ok, a pop-up asking "A userscript wants to access a cross-origin resource." will appear (if you have never got one before).\nPlease press "Always allow".\nThis is to ensure that you will not receive these pop-ups on Contest.\nPS: this is used to access TLX\'s API for the delta predictor.');
       GM_xmlhttpRequest({
         method: "GET",
-        url: 'https://uriel.tlx.toki.id/api/v2/',
+        url: 'https://api.tlx.toki.id/api/v2',
         onload: function (response) {
 
         }
