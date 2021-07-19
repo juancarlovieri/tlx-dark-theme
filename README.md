@@ -44,6 +44,8 @@ Any feedbacks are welcome :D
 
 **Update 19/06/21**:<br>- There have been a few changes in tlx's website which made the script broken. This issue have been fixed. Please update the script to the newest version.
 
+**Update 20/07/21**:<br>- There have been a few changes in tlx's API which made the script broken. This issue have been fixed. Please update the script to the newest version.
+
 
 Error Codes:
 - Code 1: You need to include the '#' character at the beginning of the Hex Color Code
